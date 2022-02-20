@@ -1,15 +1,26 @@
 package com.systemair.exchangers.domain.models;
 
+import com.systemair.exchangers.domain.TypeMontage;
+import com.systemair.exchangers.domain.exchangers.Cooler;
+import com.systemair.exchangers.myInterface.Describable;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+
+import java.util.Objects;
 
 import static com.systemair.exchangers.domain.Process.COOL;
 
-@Getter
-public class RectangleCooler extends Model {
+@AllArgsConstructor
+public class RectangleCooler extends Cooler {
     private final String type = COOL.getTxt();
     private NameModel model;
+
+    public RectangleCooler() {
+        this.typeMontage = TypeMontage.RECTANGLE;
+    }
+
     @Getter
-    private enum NameModel {
+    private enum NameModel implements Describable<NameModel> {
         PGK_400x200_3("PGK 400x200-3-2,0"),
         PGK_500x250_3("PGK 500x250-3-2,0"),
         PGK_500X300_3("PGK 500X300-3-2,0"),
@@ -33,8 +44,23 @@ public class RectangleCooler extends Model {
         PGK_800x500_4("PGK 800x500-4-2,0"),
         PGK_1000x500_4("PGK 1000x500-4-2,0");
         private final String value;
+
         NameModel(String value) {
             this.value = value;
+        }
+
+        public static NameModel getByDescription(String description) {
+            for (NameModel desc : NameModel.values()) {
+                if (Objects.requireNonNull(desc.getTxt()).equals(description)) {
+                    return desc;
+                }
+            }
+            throw new IllegalArgumentException("Тип не соответствует доступным значениям!");
+        }
+
+        @Override
+        public String getTxt() {
+            return this.value;
         }
     }
 }

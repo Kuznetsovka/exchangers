@@ -1,15 +1,24 @@
 package com.systemair.exchangers.domain.models;
 
-import lombok.Getter;
+import com.systemair.exchangers.domain.TypeMontage;
+import com.systemair.exchangers.domain.exchangers.Heater;
+import com.systemair.exchangers.myInterface.Describable;
+import lombok.AllArgsConstructor;
+
+import java.util.Objects;
 
 import static com.systemair.exchangers.domain.Process.HEAT;
 
-@Getter
-public class RectangleHeater extends Model {
+@AllArgsConstructor
+public class RectangleHeater extends Heater {
     private final String type = HEAT.getTxt();
     private NameModel model;
 
-    private enum NameModel {
+    public RectangleHeater() {
+        this.typeMontage = TypeMontage.RECTANGLE;
+    }
+
+    private enum NameModel implements Describable<NameModel> {
         PGV_250x150_2("PGV 250x150-2-2,5"),
         PGV_400x200_2("PGV 400x200-2-2,5"),
         PGV_400x200_4("PGV 400x200-4-2,5"),
@@ -39,5 +48,18 @@ public class RectangleHeater extends Model {
             this.value = value;
         }
 
+        public static NameModel getByDescription(String description) {
+            for (NameModel desc : NameModel.values()) {
+                if (Objects.requireNonNull(desc.getTxt()).equals(description)) {
+                    return desc;
+                }
+            }
+            throw new IllegalArgumentException("Тип не соответствует доступным значениям!");
+        }
+
+        @Override
+        public String getTxt() {
+            return this.value;
+        }
     }
 }

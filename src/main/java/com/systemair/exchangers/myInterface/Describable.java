@@ -1,5 +1,6 @@
 package com.systemair.exchangers.myInterface;
 
-public interface Describable {
+public interface Describable<T> {
+
     String getTxt();
 }

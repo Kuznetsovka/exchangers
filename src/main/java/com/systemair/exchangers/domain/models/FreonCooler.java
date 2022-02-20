@@ -1,15 +1,26 @@
 package com.systemair.exchangers.domain.models;
 
+import com.systemair.exchangers.domain.TypeMontage;
+import com.systemair.exchangers.domain.exchangers.Exchanger;
+import com.systemair.exchangers.myInterface.Describable;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+
+import java.util.Objects;
 
 import static com.systemair.exchangers.domain.Process.COOL;
 
-@Getter
-public class FreonCooler extends Model {
+@AllArgsConstructor
+public class FreonCooler extends Exchanger {
     private final String type = COOL.getTxt();
     private NameModel model;
+
+    public FreonCooler() {
+        this.typeMontage = TypeMontage.RECTANGLE;
+    }
+
     @Getter
-    private enum NameModel {
+    private enum NameModel implements Describable<NameModel> {
         PGDX_400x200_3("PGDX 400x200-3-2,5"),
         PGDX_500x250_3("PGDX 500x250-3-2,5"),
         PGDX_500x300_3("PGDX 500x300-3-2,5"),
@@ -25,6 +36,20 @@ public class FreonCooler extends Model {
 
         NameModel(String value) {
             this.value = value;
+        }
+
+        public static NameModel getByDescription(String description) {
+            for (NameModel desc : NameModel.values()) {
+                if (Objects.requireNonNull(desc.getTxt()).equals(description)) {
+                    return desc;
+                }
+            }
+            throw new IllegalArgumentException("Тип не соответствует доступным значениям!");
+        }
+
+        @Override
+        public String getTxt() {
+            return this.value;
         }
     }
 }

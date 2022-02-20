@@ -1,15 +1,27 @@
 package com.systemair.exchangers.domain.models;
 
+import com.systemair.exchangers.domain.TypeMontage;
+import com.systemair.exchangers.domain.exchangers.Cooler;
+import com.systemair.exchangers.myInterface.Describable;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+
+import java.util.Objects;
 
 import static com.systemair.exchangers.domain.Process.COOL;
 
-@Getter
-public class RoundCooler extends Model {
+
+@AllArgsConstructor
+public class RoundCooler extends Cooler {
     private final String type = COOL.getTxt();
     private NameModel model;
+
+    public RoundCooler() {
+        this.typeMontage = TypeMontage.ROUND;
+    }
+
     @Getter
-    private enum NameModel {
+    private enum NameModel implements Describable<NameModel> {
         CWK_100_3("CWK 100-3-2,5"),
         CWK_125_3("CWK 125-3-2,5"),
         CWK_160_3("CWK 160-3-2,5"),
@@ -21,6 +33,20 @@ public class RoundCooler extends Model {
 
         NameModel(String value) {
             this.value = value;
+        }
+
+        public NameModel getByDescription(String description) {
+            for (NameModel desc : NameModel.values()) {
+                if (Objects.requireNonNull(desc.getTxt()).equals(description)) {
+                    return desc;
+                }
+            }
+            throw new IllegalArgumentException("Тип не соответствует доступным значениям!");
+        }
+
+        @Override
+        public String getTxt() {
+            return this.value;
         }
     }
 }

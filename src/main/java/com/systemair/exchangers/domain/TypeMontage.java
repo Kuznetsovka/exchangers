@@ -2,7 +2,7 @@ package com.systemair.exchangers.domain;
 
 import com.systemair.exchangers.myInterface.Describable;
 
-public enum TypeMontage implements Describable {
+public enum TypeMontage implements Describable<TypeMontage> {
     ROUND("Круглый"),
     RECTANGLE("Прямоугольный");
     private final String description;

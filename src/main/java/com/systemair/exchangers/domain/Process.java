@@ -2,7 +2,7 @@ package com.systemair.exchangers.domain;
 
 import com.systemair.exchangers.myInterface.Describable;
 
-public enum Process implements Describable {
+public enum Process implements Describable<Process> {
     HEAT("Нагрев"),
     COOL("Охлаждение");
     private final String description;
@@ -16,8 +16,9 @@ public enum Process implements Describable {
         return this.description;
     }
 
-    public static TypeMontage getByDescription(String description) {
-        for (TypeMontage desc : TypeMontage.values()) {
+
+    public static Process getByDescription(String description) {
+        for (Process desc : Process.values()) {
             if (desc.getTxt().equals(description)) {
                 return desc;
             }
