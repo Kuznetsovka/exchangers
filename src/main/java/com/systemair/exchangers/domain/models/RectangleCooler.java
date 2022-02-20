@@ -14,13 +14,14 @@ import static com.systemair.exchangers.domain.Process.COOL;
 public class RectangleCooler extends Cooler {
     private final String type = COOL.getTxt();
     private NameModel model;
+    public static final String URL = "http://calculation.veab.com/en-US/Calculation/Index/PGK/H";
 
     public RectangleCooler() {
         this.typeMontage = TypeMontage.RECTANGLE;
     }
 
     @Getter
-    private enum NameModel implements Describable<NameModel> {
+    private enum NameModel implements Describable {
         PGK_400x200_3("PGK 400x200-3-2,0"),
         PGK_500x250_3("PGK 500x250-3-2,0"),
         PGK_500X300_3("PGK 500X300-3-2,0"),
@@ -63,4 +64,13 @@ public class RectangleCooler extends Cooler {
             return this.value;
         }
     }
+
+    @Override
+    public String getURL() {
+        return URL;
+    }
+
+//    public NameModel getModel() {
+//        return model;
+//    }
 }

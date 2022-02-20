@@ -2,7 +2,7 @@ package com.systemair.exchangers.domain;
 
 import com.systemair.exchangers.myInterface.Describable;
 
-public enum Process implements Describable<Process> {
+public enum Process implements Describable {
     HEAT("Нагрев"),
     COOL("Охлаждение");
     private final String description;

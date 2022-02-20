@@ -12,13 +12,14 @@ import static com.systemair.exchangers.domain.Process.HEAT;
 @AllArgsConstructor
 public class RectangleHeater extends Heater {
     private final String type = HEAT.getTxt();
+    public final String URL = "http://calculation.veab.com/ru-RU/Calculation/Index/PGV/H";
     private NameModel model;
 
     public RectangleHeater() {
         this.typeMontage = TypeMontage.RECTANGLE;
     }
 
-    private enum NameModel implements Describable<NameModel> {
+    private enum NameModel implements Describable {
         PGV_250x150_2("PGV 250x150-2-2,5"),
         PGV_400x200_2("PGV 400x200-2-2,5"),
         PGV_400x200_4("PGV 400x200-4-2,5"),
@@ -58,8 +59,39 @@ public class RectangleHeater extends Heater {
         }
 
         @Override
+        public String toString() {
+            return "NameModel{" +
+                    "value='" + value + '\'' +
+                    '}';
+        }
+
+        @Override
         public String getTxt() {
             return this.value;
         }
     }
+
+    @Override
+    public String getURL() {
+        return URL;
+    }
+
+    @Override
+    public String toString() {
+        return "RectangleCooler{" +
+                "tIn=" + tIn +
+                ", uIn=" + uIn +
+                ", airFlow=" + airFlow +
+                ", fluid=" + fluid +
+                ", tOut=" + tOut +
+                ", typeMontage=" + typeMontage +
+                ", result=" + result +
+                ", type='" + type + '\'' +
+                ", model=" + model +
+                '}';
+    }
+
+//    public NameModel getModel() {
+//        return model;
+//    }
 }

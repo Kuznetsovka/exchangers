@@ -2,7 +2,6 @@ package com.systemair.exchangers.staticClasses;
 
 import org.apache.log4j.Logger;
 
-
 import java.io.*;
 import java.net.URL;
 import java.nio.channels.Channels;
@@ -15,9 +14,9 @@ public class UtilClass {
     private static final String PROPERTY_FILE = "C:/ProgramData/DriverChrome/config.properties";
     private static final Logger LOGGER = Logger.getLogger(UtilClass.class.getName());
     public static String PATH_WORK;
-    public static String CHROME_DRIVER;
-    public static String EDGE_DRIVER;
-    public static String BROWSER;
+    public static String CHROME_DRIVER = "C:\\ProgramData\\DriverChrome\\chromedriver\\chromedriver.exe";
+    public static String EDGE_DRIVER = "C:\\ProgramData\\DriverChrome\\edgedriver\\edgedriver.exe";
+    public static String BROWSER = "EDGE";
     public static final int MAX_LIMIT_TIMEOUT = 40;
     public static final int LIMIT_REPEAT_TIMEOUT = 500;
 

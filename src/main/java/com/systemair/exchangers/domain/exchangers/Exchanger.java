@@ -4,23 +4,26 @@ import com.systemair.exchangers.domain.TypeMontage;
 import com.systemair.exchangers.domain.fluid.Fluid;
 import com.systemair.exchangers.domain.fluid.Freon;
 import com.systemair.exchangers.domain.fluid.Water;
+import com.systemair.exchangers.domain.models.FreonCooler;
 import lombok.Getter;
 import lombok.Setter;
 
 import static com.systemair.exchangers.domain.fluid.Freon.TypeFreon.isFreon;
 import static com.systemair.exchangers.domain.fluid.Water.TypeWater.getByDescription;
 
+
 @Getter
 @Setter
 public class Exchanger {
-    private double tIn;
-    private int uIn;
-    private int airFlow;
-    private Fluid fluid;
-    private int tOut;
-    private String Model;
+    protected int tIn;
+    protected int uIn;
+    protected int airFlow;
+    protected Fluid fluid;
+    protected int tOut;
+    public String URL;
+    private FreonCooler.NameModel model;
     protected TypeMontage typeMontage;
-    private Result result;
+    protected Result result;
 
     public void setFluid(String fluid, int mixture, int tInFluid, int tOutFluid) {
         if (isFreon(fluid))
@@ -29,7 +32,7 @@ public class Exchanger {
             this.fluid = new Water(getByDescription(fluid), mixture, tInFluid, tOutFluid);
     }
 
-    public void fillProperties(String typeFluid, Integer mixture, Double tIn, Integer uIn, Integer tOut, Integer airFlow, Integer tInFluid, Integer tOutFluid, Exchanger exchanger) {
+    public void fillProperties(String typeFluid, Integer mixture, int tIn, Integer uIn, Integer tOut, Integer airFlow, Integer tInFluid, Integer tOutFluid, Exchanger exchanger) {
         this.setTIn(tIn);
         this.setUIn(uIn);
         this.setTOut(tOut);
@@ -45,9 +48,12 @@ public class Exchanger {
                 ", airFlow=" + airFlow +
                 ", fluid=" + fluid +
                 ", tOut=" + tOut +
-                ", Model='" + Model + '\'' +
                 ", typeMontage=" + typeMontage +
                 ", result=" + result +
                 '}';
+    }
+
+    public Fluid getFluid() {
+        return fluid;
     }
 }

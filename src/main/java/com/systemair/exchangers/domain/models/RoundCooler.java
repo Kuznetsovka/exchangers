@@ -15,13 +15,13 @@ import static com.systemair.exchangers.domain.Process.COOL;
 public class RoundCooler extends Cooler {
     private final String type = COOL.getTxt();
     private NameModel model;
-
+    public static final String URL = "http://calculation.veab.com/ru-RU/Calculation/Index/CWK/HC";
     public RoundCooler() {
         this.typeMontage = TypeMontage.ROUND;
     }
 
     @Getter
-    private enum NameModel implements Describable<NameModel> {
+    private enum NameModel implements Describable {
         CWK_100_3("CWK 100-3-2,5"),
         CWK_125_3("CWK 125-3-2,5"),
         CWK_160_3("CWK 160-3-2,5"),
@@ -45,8 +45,39 @@ public class RoundCooler extends Cooler {
         }
 
         @Override
+        public String toString() {
+            return "NameModel{" +
+                    "value='" + value + '\'' +
+                    '}';
+        }
+
+        @Override
         public String getTxt() {
             return this.value;
         }
     }
+
+    @Override
+    public String getURL() {
+        return URL;
+    }
+
+    @Override
+    public String toString() {
+        return "RectangleCooler{" +
+                "tIn=" + tIn +
+                ", uIn=" + uIn +
+                ", airFlow=" + airFlow +
+                ", fluid=" + fluid +
+                ", tOut=" + tOut +
+                ", typeMontage=" + typeMontage +
+                ", result=" + result +
+                ", type='" + type + '\'' +
+                ", model=" + model +
+                '}';
+    }
+
+//    public NameModel getModel() {
+//        return model;
+//    }
 }

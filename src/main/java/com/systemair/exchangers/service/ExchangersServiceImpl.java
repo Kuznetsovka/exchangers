@@ -26,13 +26,13 @@ public class ExchangersServiceImpl implements ExchangersService {
         String typeMontage = args[0];
         String process = args[1];
         String typeFluid = args[2];
-        Integer mixture = Integer.valueOf(args[3]);
-        Double tIn = Double.parseDouble(args[4]);
-        Integer uIn = Integer.valueOf(args[5]);
-        Integer tOut = Integer.valueOf(args[6]);
-        Integer airFlow = Integer.valueOf(args[7]);
-        Integer tInFluid = Integer.valueOf(args[8]);
-        Integer tOutFluid = Integer.valueOf(args[9]);
+        int mixture = Integer.parseInt(args[3]);
+        int tIn = Integer.parseInt(args[4]);
+        int uIn = Integer.parseInt(args[5]);
+        int tOut = Integer.parseInt(args[6]);
+        int airFlow = Integer.parseInt(args[7]);
+        int tInFluid = Integer.parseInt(args[8]);
+        int tOutFluid = Integer.parseInt(args[9]);
         String model = (args.length == 11) ? args[10] : "";
         if (typeMontage.equals(ROUND.getTxt())) {
             if (process.equals(HEAT.getTxt())) {
@@ -50,7 +50,7 @@ public class ExchangersServiceImpl implements ExchangersService {
             }
         }
         exchanger.fillProperties(typeFluid, mixture, tIn, uIn, tOut, airFlow, tInFluid, tOutFluid, exchanger);
-        exchanger.setModel(model);
+        //exchanger.setModel(model);
         return exchanger;
     }
 

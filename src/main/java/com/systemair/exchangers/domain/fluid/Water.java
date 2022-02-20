@@ -8,8 +8,6 @@ import java.util.Objects;
 @Getter
 public class Water extends Fluid {
     private final TypeWater type;
-    private final Integer mixture;
-    private final int tOutFluid;
 
     public Water(TypeWater type, Integer mixture, int tInFluid, int tOutFluid) {
         this.mixture = mixture;
@@ -19,7 +17,7 @@ public class Water extends Fluid {
     }
 
     @Getter
-    public enum TypeWater implements Describable<TypeWater> {
+    public enum TypeWater implements Describable, TypeFluid {
         WATER("Вода", 0),
         ETHYLENE_GLYCOL("Этиленгликоль", 1),
         PROPYLENE_GLYCOL("Пропиленгликоль", 2);

@@ -23,7 +23,7 @@ public class EdgeBrowser {
             EdgeOptions edgeOptions = new EdgeOptions();
             edgeOptions.addArguments("start-maximized");
             edgeOptions.addArguments("enable-automation");
-            edgeOptions.addArguments("--headless");
+            //edgeOptions.addArguments("--headless");
             driver = new EdgeDriver(edgeOptions);
             // Ожидание 40 секунд, опрос каждые 0.5 секунды
             wait = new FluentWait<>(driver)
@@ -31,7 +31,7 @@ public class EdgeBrowser {
                     .pollingEvery(Duration.ofNanos(LIMIT_REPEAT_TIMEOUT))
                     .ignoring(NoSuchElementException.class, ElementClickInterceptedException.class);
         } catch (IllegalArgumentException e) {
-            //showAlert(LOGGER, "Драйвер не найден по указанному пути!" + "\n" + e.getMessage() + "\r" + "Требуемый путь: " + EDGE_DRIVER, Alert.AlertType.WARNING);
+            LOGGER.warn("Драйвер не найден по указанному пути!" + "\n" + e.getMessage() + "\r" + "Требуемый путь: " + CHROME_DRIVER);
         }
     }
 

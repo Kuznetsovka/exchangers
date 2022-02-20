@@ -14,9 +14,8 @@ public class Freon extends Fluid {
         this.type = type;
         this.tInFluid = tInFluid;
     }
-
     @Getter
-    public enum TypeFreon implements Describable<TypeFreon> {
+    public enum TypeFreon implements Describable, TypeFluid {
         R410A(34),
         R134A(19),
         R407C(30),

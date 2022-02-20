@@ -1,17 +1,6 @@
 package com.systemair.exchangers.service;
 
-import com.systemair.exchangers.staticClasses.SingletonBrowserClass;
-import org.apache.log4j.Logger;
-import org.openqa.selenium.By;
-import org.openqa.selenium.ElementClickInterceptedException;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebElement;
-
-import java.util.List;
-
-import static org.openqa.selenium.support.ui.ExpectedConditions.*;
-
-public class SystemairBrowserService extends BrowserServiceImpl {
+public class SystemairBrowserService {
 //    protected String positiveLimit = "100";
 //    protected String negativeLimit = "0";
 //    private boolean isClear;

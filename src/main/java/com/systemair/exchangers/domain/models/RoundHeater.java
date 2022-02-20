@@ -14,13 +14,13 @@ import static com.systemair.exchangers.domain.Process.HEAT;
 public class RoundHeater extends Heater {
     private final String type = HEAT.getTxt();
     public NameModel model;
-
+    public static final String URL = "http://calculation.veab.com/ru-RU/Calculation/Index/CWW/H";
     public RoundHeater() {
         this.typeMontage = TypeMontage.ROUND;
     }
 
     @Getter
-    private enum NameModel implements Describable<NameModel> {
+    private enum NameModel implements Describable {
         CWW_100_2("CWW 100-2-2,5"),
         CWW_125_2("CWW 125-2-2,5"),
         CWW_160_2("CWW 160-2-2,5"),
@@ -52,8 +52,39 @@ public class RoundHeater extends Heater {
         }
 
         @Override
+        public String toString() {
+            return "NameModel{" +
+                    "value='" + value + '\'' +
+                    '}';
+        }
+
+        @Override
         public String getTxt() {
             return this.value;
         }
     }
+
+    @Override
+    public String getURL() {
+        return URL;
+    }
+
+    @Override
+    public String toString() {
+        return "RectangleCooler{" +
+                "tIn=" + tIn +
+                ", uIn=" + uIn +
+                ", airFlow=" + airFlow +
+                ", fluid=" + fluid +
+                ", tOut=" + tOut +
+                ", typeMontage=" + typeMontage +
+                ", result=" + result +
+                ", type='" + type + '\'' +
+                ", model=" + model +
+                '}';
+    }
+
+//    public NameModel getModel() {
+//        return model;
+//    }
 }
