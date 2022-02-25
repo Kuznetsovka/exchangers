@@ -1,7 +1,8 @@
 package com.systemair.exchangers.domain.models;
 
+import com.systemair.exchangers.domain.Process;
 import com.systemair.exchangers.domain.TypeMontage;
-import com.systemair.exchangers.domain.exchangers.Exchanger;
+import com.systemair.exchangers.domain.exchangers.Cooler;
 import com.systemair.exchangers.myInterface.Describable;
 import lombok.AllArgsConstructor;
 
@@ -10,13 +11,17 @@ import java.util.Objects;
 import static com.systemair.exchangers.domain.Process.COOL;
 
 @AllArgsConstructor
-public class FreonCooler extends Exchanger {
-    private final String type = COOL.getTxt();
+public class FreonCooler extends Cooler {
     private NameModel model;
     public static final String URL = "http://calculation.veab.com/en-US/Calculation/Index/PGDX/HC";
 
     public FreonCooler() {
         this.typeMontage = TypeMontage.RECTANGLE;
+    }
+
+    @Override
+    public void setModel(String model) {
+        this.model = NameModel.valueOf(model);
     }
 
     public enum NameModel implements Describable {
@@ -59,6 +64,10 @@ public class FreonCooler extends Exchanger {
         }
     }
 
+    public Process getProcess(){
+        return this.process;
+    }
+
     @Override
     public String toString() {
         return "RectangleCooler{" +
@@ -68,14 +77,9 @@ public class FreonCooler extends Exchanger {
                 ", fluid=" + fluid +
                 ", typeMontage=" + typeMontage +
                 ", result=" + result +
-                ", type='" + type + '\'' +
+                ", type='" + process.getTxt() + '\'' +
                 ", model=" + model +
                 '}';
     }
-
-//    @Override
-//    public NameModel getModel() {
-//        return model;
-//    }
 
 }

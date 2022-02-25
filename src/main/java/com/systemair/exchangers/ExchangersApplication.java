@@ -1,6 +1,7 @@
 package com.systemair.exchangers;
 
 import com.systemair.exchangers.domain.exchangers.Exchanger;
+import com.systemair.exchangers.domain.exchangers.ExchangerFactory;
 import com.systemair.exchangers.service.BrowserService;
 import com.systemair.exchangers.service.ExchangersService;
 import com.systemair.exchangers.service.ExchangersServiceImpl;
@@ -13,7 +14,8 @@ import static com.systemair.exchangers.domain.TypeMontage.ROUND;
 import static com.systemair.exchangers.domain.fluid.Freon.TypeFreon.isFreon;
 
 public class ExchangersApplication {
-    static ExchangersService exchangersService = new ExchangersServiceImpl();
+    private static final ExchangerFactory exchangerFactory = new ExchangerFactory();
+    static ExchangersService exchangersService = new ExchangersServiceImpl(exchangerFactory);
     static BrowserService browserService = new VeabBrowserService();
 
     /**
@@ -33,13 +35,13 @@ public class ExchangersApplication {
      */
     public static void main(String[] args) {
         checkArgs(args);
-        Exchanger exchanger = exchangersService.createExchanger(args);
+        Exchanger exchanger = exchangersService.getExchanger(args);
         browserService.navigate(exchanger.getURL());
         browserService.fillTechData(exchanger);
         // В конце
         //browserService.selectModel("PGV 500x400-4-2,5");
         System.out.println(exchanger);
-        exchanger.setResult(browserService.getResult(exchanger.getTOut()));
+        exchanger.setResult(browserService.getResult(exchanger.getProcess(),exchanger.getTOut()));
         System.out.println(exchanger.getResult());
         browserService.stop();
     }

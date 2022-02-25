@@ -1,5 +1,6 @@
 package com.systemair.exchangers.service;
 
+import com.systemair.exchangers.domain.Process;
 import com.systemair.exchangers.domain.exchangers.Exchanger;
 import com.systemair.exchangers.domain.exchangers.Result;
 import com.systemair.exchangers.domain.fluid.Water;
@@ -7,6 +8,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
+import static com.systemair.exchangers.domain.Process.COOL;
+import static com.systemair.exchangers.domain.Process.HEAT;
 import static com.systemair.exchangers.domain.fluid.Freon.TypeFreon.isFreon;
 import static java.lang.System.exit;
 
@@ -31,39 +34,48 @@ public class VeabBrowserService extends BrowserServiceImpl {
 
     @Override
     public void fillTechData(Exchanger exchanger) {
+        if (exchanger.getProcess() == COOL)
+            changeValueComboBoxByLabel("selCalculationMethod", "Cooling");
         inputTextById("txtInletDryBulbTemperature", String.valueOf(exchanger.getTIn()));
         inputTextById("txtRelativeHumidity", String.valueOf(exchanger.getUIn()));
         inputTextById("txtVolumetricFlowAir", String.valueOf(exchanger.getAirFlow()));
         changeValueComboBoxByLabel("selFluid", String.valueOf(exchanger.getFluid().getType().getValue()));
         if (!isFreon(exchanger.getFluid().getType().getTxt())) {
             inputTextById("txtInletTemperature", String.valueOf(exchanger.getFluid().getTInFluid()));
-            inputTextById("txtOutletTemparature", String.valueOf(exchanger.getFluid().getTOutFluid()));
+            inputTextById("txtOutletTemparature", String.valueOf(exchanger.getFluid().getTOutFluid()));//Ошибка id в DOM, не менять
             if (!exchanger.getFluid().getType().getTxt().equals(Water.TypeWater.WATER.getTxt())) {
                 inputTextById("txtMixtureRate", String.valueOf(exchanger.getFluid().getMixture()));
             }
         }
         inputTextById("txtAirOutletTemperature", String.valueOf(exchanger.getTOut()));
+        inputTextById("txtTolerance", String.valueOf(30));
         clickElementIfExistsByXpath("//*[@id='Data']/div[13]/button");
         waitResult();
     }
 
     @Override
-    public Result getResult(int tOut) {
+    public Result getResult(Process process, int tOut) {
         int rows = sbc.getDriver().findElements(By.xpath("//*[@id='tblResultProduct']/tbody/tr")).size();
         for (int i = 0; i < rows; i++) {
             WebElement row = sbc.getDriver().findElement(By.id(String.valueOf(i)));
             double resultTOut = Double.parseDouble(row.getAttribute("data-airtemperatureoutlet"));
-            if (resultTOut >= tOut) {
-                double capacity = Double.parseDouble(row.getAttribute("data-capacity")) / 1000;
-                long airDrop = Math.round(Double.parseDouble(row.getAttribute("data-airpressuredrop")));
-                double airVelocity = Double.parseDouble(row.getAttribute("data-airvelocity"));
-                String fluidDrop = Math.scalb(Double.parseDouble(row.getAttribute("data-fldpressuredrop")), 2) + getTextByXPath("//span[contains(@class, 'clsLiquidPresDrop')]/br");
-                String fluidFlow = Math.scalb(Double.parseDouble(row.getAttribute("data-fldpressuredrop")), 2) + getTextByXPath("//span[contains(@class, 'clsLiquidFlow')]/br");
-                String model = row.getAttribute("data-model");
-                return new Result(capacity, tOut, airDrop, airVelocity, fluidDrop, fluidFlow, model);
+            if (process == HEAT) {
+                if (resultTOut >= tOut) return fillResult(tOut, row);
+            } else {
+                if (resultTOut <= tOut) return fillResult(tOut, row);
             }
         }
         return null;
+    }
+
+    private Result fillResult(int tOut, WebElement row) {
+        double capacity = Double.parseDouble(row.getAttribute("data-capacity")) / 1000;
+        long airDrop = Math.round(Double.parseDouble(row.getAttribute("data-airpressuredrop")));
+        double airVelocity = Double.parseDouble(row.getAttribute("data-airvelocity"));
+        String fluidDrop = Math.scalb(Double.parseDouble(row.getAttribute("data-fldpressuredrop")), 2) + getTextByXPath("//span[contains(@class, 'clsLiquidPresDrop')]/br");
+        String fluidFlow = Math.scalb(Double.parseDouble(row.getAttribute("data-fldpressuredrop")), 2) + getTextByXPath("//span[contains(@class, 'clsLiquidFlow')]/br");
+        String model = row.getAttribute("data-model");
+        return new Result(capacity, tOut, airDrop, airVelocity, fluidDrop, fluidFlow, model);
     }
 
     private String getTextByXPath(String xpath) {

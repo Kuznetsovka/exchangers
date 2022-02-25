@@ -1,10 +1,10 @@
 package com.systemair.exchangers.domain.exchangers;
-
+import  com.systemair.exchangers.domain.Process;
 import com.systemair.exchangers.domain.TypeMontage;
 import com.systemair.exchangers.domain.fluid.Fluid;
 import com.systemair.exchangers.domain.fluid.Freon;
 import com.systemair.exchangers.domain.fluid.Water;
-import com.systemair.exchangers.domain.models.FreonCooler;
+import com.systemair.exchangers.domain.models.Modifiable;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -14,14 +14,13 @@ import static com.systemair.exchangers.domain.fluid.Water.TypeWater.getByDescrip
 
 @Getter
 @Setter
-public class Exchanger {
+public abstract class Exchanger implements Modifiable {
     protected int tIn;
     protected int uIn;
     protected int airFlow;
     protected Fluid fluid;
     protected int tOut;
     public String URL;
-    private FreonCooler.NameModel model;
     protected TypeMontage typeMontage;
     protected Result result;
 
@@ -56,4 +55,8 @@ public class Exchanger {
     public Fluid getFluid() {
         return fluid;
     }
+
+    public abstract void setModel(String model);
+
+    public abstract Process getProcess();
 }

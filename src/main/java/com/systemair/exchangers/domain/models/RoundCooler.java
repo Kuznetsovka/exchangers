@@ -1,5 +1,6 @@
 package com.systemair.exchangers.domain.models;
 
+import com.systemair.exchangers.domain.Process;
 import com.systemair.exchangers.domain.TypeMontage;
 import com.systemair.exchangers.domain.exchangers.Cooler;
 import com.systemair.exchangers.myInterface.Describable;
@@ -13,13 +14,16 @@ import static com.systemair.exchangers.domain.Process.COOL;
 
 @AllArgsConstructor
 public class RoundCooler extends Cooler {
-    private final String type = COOL.getTxt();
     private NameModel model;
     public static final String URL = "http://calculation.veab.com/ru-RU/Calculation/Index/CWK/HC";
     public RoundCooler() {
         this.typeMontage = TypeMontage.ROUND;
     }
 
+    @Override
+    public void setModel(String model) {
+        this.model = NameModel.valueOf(model);
+    }
     @Getter
     private enum NameModel implements Describable {
         CWK_100_3("CWK 100-3-2,5"),
@@ -34,6 +38,7 @@ public class RoundCooler extends Cooler {
         NameModel(String value) {
             this.value = value;
         }
+
 
         public NameModel getByDescription(String description) {
             for (NameModel desc : NameModel.values()) {
@@ -62,6 +67,10 @@ public class RoundCooler extends Cooler {
         return URL;
     }
 
+    public Process getProcess(){
+        return this.process;
+    }
+
     @Override
     public String toString() {
         return "RectangleCooler{" +
@@ -72,10 +81,12 @@ public class RoundCooler extends Cooler {
                 ", tOut=" + tOut +
                 ", typeMontage=" + typeMontage +
                 ", result=" + result +
-                ", type='" + type + '\'' +
+                ", type='" + process.getTxt() + '\'' +
                 ", model=" + model +
                 '}';
     }
+
+
 
 //    public NameModel getModel() {
 //        return model;

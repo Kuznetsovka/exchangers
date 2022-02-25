@@ -1,5 +1,6 @@
 package com.systemair.exchangers.domain.models;
 
+import com.systemair.exchangers.domain.Process;
 import com.systemair.exchangers.domain.TypeMontage;
 import com.systemair.exchangers.domain.exchangers.Heater;
 import com.systemair.exchangers.myInterface.Describable;
@@ -11,12 +12,16 @@ import static com.systemair.exchangers.domain.Process.HEAT;
 
 @AllArgsConstructor
 public class RectangleHeater extends Heater {
-    private final String type = HEAT.getTxt();
     public final String URL = "http://calculation.veab.com/ru-RU/Calculation/Index/PGV/H";
     private NameModel model;
 
     public RectangleHeater() {
         this.typeMontage = TypeMontage.RECTANGLE;
+    }
+
+    @Override
+    public void setModel(String model) {
+        this.model = NameModel.valueOf(model);
     }
 
     private enum NameModel implements Describable {
@@ -76,6 +81,10 @@ public class RectangleHeater extends Heater {
         return URL;
     }
 
+    public Process getProcess(){
+        return this.process;
+    }
+
     @Override
     public String toString() {
         return "RectangleCooler{" +
@@ -86,7 +95,7 @@ public class RectangleHeater extends Heater {
                 ", tOut=" + tOut +
                 ", typeMontage=" + typeMontage +
                 ", result=" + result +
-                ", type='" + type + '\'' +
+                ", type='" + process.getTxt() + '\'' +
                 ", model=" + model +
                 '}';
     }

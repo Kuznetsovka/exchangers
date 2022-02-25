@@ -1,5 +1,6 @@
 package com.systemair.exchangers.domain.models;
 
+import com.systemair.exchangers.domain.Process;
 import com.systemair.exchangers.domain.TypeMontage;
 import com.systemair.exchangers.domain.exchangers.Cooler;
 import com.systemair.exchangers.myInterface.Describable;
@@ -8,16 +9,18 @@ import lombok.Getter;
 
 import java.util.Objects;
 
-import static com.systemair.exchangers.domain.Process.COOL;
-
 @AllArgsConstructor
 public class RectangleCooler extends Cooler {
-    private final String type = COOL.getTxt();
     private NameModel model;
     public static final String URL = "http://calculation.veab.com/en-US/Calculation/Index/PGK/H";
 
     public RectangleCooler() {
         this.typeMontage = TypeMontage.RECTANGLE;
+    }
+
+    @Override
+    public void setModel(String model) {
+        this.model = RectangleCooler.NameModel.valueOf(model);
     }
 
     @Getter
@@ -65,12 +68,26 @@ public class RectangleCooler extends Cooler {
         }
     }
 
+    public Process getProcess(){
+        return this.process;
+    }
     @Override
     public String getURL() {
         return URL;
     }
 
-//    public NameModel getModel() {
-//        return model;
-//    }
+    @Override
+    public String toString() {
+        return "RectangleCooler{" +
+                "tIn=" + tIn +
+                ", uIn=" + uIn +
+                ", airFlow=" + airFlow +
+                ", fluid=" + fluid +
+                ", tOut=" + tOut +
+                ", typeMontage=" + typeMontage +
+                ", result=" + result +
+                ", type='" + process.getTxt() + '\'' +
+                ", model=" + model +
+                '}';
+    }
 }

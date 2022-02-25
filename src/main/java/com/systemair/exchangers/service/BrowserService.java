@@ -1,5 +1,6 @@
 package com.systemair.exchangers.service;
 
+import com.systemair.exchangers.domain.Process;
 import com.systemair.exchangers.domain.exchangers.Exchanger;
 import com.systemair.exchangers.domain.exchangers.Result;
 
@@ -16,7 +17,7 @@ public interface BrowserService {
 
     void inputTextById(String id, String newValue) throws InterruptedException;
 
-    Result getResult(int tOut);
+    Result getResult(Process process, int tOut);
 //
 //    void initializeBrowser();
 //

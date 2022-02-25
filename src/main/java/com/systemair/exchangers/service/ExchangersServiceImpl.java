@@ -1,6 +1,7 @@
 package com.systemair.exchangers.service;
 
 import com.systemair.exchangers.domain.exchangers.Exchanger;
+import com.systemair.exchangers.domain.exchangers.ExchangerFactory;
 import com.systemair.exchangers.domain.models.*;
 
 import static com.systemair.exchangers.domain.Process.HEAT;
@@ -8,6 +9,12 @@ import static com.systemair.exchangers.domain.TypeMontage.ROUND;
 import static com.systemair.exchangers.domain.fluid.Freon.TypeFreon.isFreon;
 
 public class ExchangersServiceImpl implements ExchangersService {
+    private final ExchangerFactory exchangerFactory;
+
+    public ExchangersServiceImpl(ExchangerFactory exchangerFactory) {
+        this.exchangerFactory = exchangerFactory;
+    }
+
     /**
      * 0 - Тип монтажа
      * 1 - Тип теплообменника
@@ -21,7 +28,7 @@ public class ExchangersServiceImpl implements ExchangersService {
      * 9 - Т выхода жидкости
      */
     @Override
-    public Exchanger createExchanger(String[] args) {
+    public Exchanger getExchanger(String[] args) {
         Exchanger exchanger;
         String typeMontage = args[0];
         String process = args[1];
@@ -34,24 +41,9 @@ public class ExchangersServiceImpl implements ExchangersService {
         int tInFluid = Integer.parseInt(args[8]);
         int tOutFluid = Integer.parseInt(args[9]);
         String model = (args.length == 11) ? args[10] : "";
-        if (typeMontage.equals(ROUND.getTxt())) {
-            if (process.equals(HEAT.getTxt())) {
-                exchanger = new RoundHeater();
-            } else {
-                exchanger = new RoundCooler();
-            }
-        } else {
-            if (process.equals(HEAT.getTxt())) {
-                exchanger = new RectangleHeater();
-            } else if (isFreon(typeFluid)) {
-                exchanger = new FreonCooler();
-            } else {
-                exchanger = new RectangleCooler();
-            }
-        }
+        exchanger = exchangerFactory.createExchanger(typeMontage, process, typeFluid);
         exchanger.fillProperties(typeFluid, mixture, tIn, uIn, tOut, airFlow, tInFluid, tOutFluid, exchanger);
-        //exchanger.setModel(model);
+        if (!model.isEmpty()) exchanger.setModel(model);
         return exchanger;
     }
-
 }
