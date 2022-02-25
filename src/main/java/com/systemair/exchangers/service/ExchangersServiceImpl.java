@@ -2,11 +2,6 @@ package com.systemair.exchangers.service;
 
 import com.systemair.exchangers.domain.exchangers.Exchanger;
 import com.systemair.exchangers.domain.exchangers.ExchangerFactory;
-import com.systemair.exchangers.domain.models.*;
-
-import static com.systemair.exchangers.domain.Process.HEAT;
-import static com.systemair.exchangers.domain.TypeMontage.ROUND;
-import static com.systemair.exchangers.domain.fluid.Freon.TypeFreon.isFreon;
 
 public class ExchangersServiceImpl implements ExchangersService {
     private final ExchangerFactory exchangerFactory;

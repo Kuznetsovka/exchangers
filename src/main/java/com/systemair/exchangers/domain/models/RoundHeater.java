@@ -13,6 +13,7 @@ import java.util.Objects;
 public class RoundHeater extends Heater {
     public NameModel model;
     public static final String URL = "http://calculation.veab.com/ru-RU/Calculation/Index/CWW/H";
+
     public RoundHeater() {
         this.typeMontage = TypeMontage.ROUND;
     }
@@ -72,7 +73,7 @@ public class RoundHeater extends Heater {
         return URL;
     }
 
-    public Process getProcess(){
+    public Process getProcess() {
         return this.process;
     }
 

@@ -33,7 +33,7 @@ public class ExchangersApplication {
         System.out.println(exchanger);
         // В конце
         //browserService.selectModel("PGV 500x400-4-2,5");
-        exchanger.setResult(browserService.getResult(exchanger.getProcess(),exchanger.getTOut()));
+        exchanger.setResult(browserService.getResult(exchanger.getProcess(), exchanger.getTOut()));
         System.out.println(exchanger.getResult());
         browserService.stop();
     }

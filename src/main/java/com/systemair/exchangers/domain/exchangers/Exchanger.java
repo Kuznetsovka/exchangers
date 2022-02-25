@@ -1,5 +1,6 @@
 package com.systemair.exchangers.domain.exchangers;
-import  com.systemair.exchangers.domain.Process;
+
+import com.systemair.exchangers.domain.Process;
 import com.systemair.exchangers.domain.TypeMontage;
 import com.systemair.exchangers.domain.fluid.Fluid;
 import com.systemair.exchangers.domain.fluid.Freon;

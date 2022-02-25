@@ -7,7 +7,7 @@ import static com.systemair.exchangers.domain.TypeMontage.ROUND;
 import static com.systemair.exchangers.domain.fluid.Freon.TypeFreon.isFreon;
 
 public class CheckServiceImpl implements CheckService {
-    public  void checkArgs(String[] args) {
+    public void checkArgs(String[] args) {
         if (args.length != 10 && args.length != 11)
             throw new IndexOutOfBoundsException("Количество аргументов не соответствует протоколу!");
         if (notAvailableExchanger(args[0])) {
@@ -67,7 +67,7 @@ public class CheckServiceImpl implements CheckService {
         return false;
     }
 
-    public boolean notAvailableExchanger(String typeMontage){
+    public boolean notAvailableExchanger(String typeMontage) {
         return !typeMontage.equals(ROUND.getTxt()) && !typeMontage.equals(RECTANGLE.getTxt());
     }
 }

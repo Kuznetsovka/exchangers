@@ -6,6 +6,7 @@ import lombok.Getter;
 @Getter
 public abstract class Heater extends Exchanger {
     protected final Process process = Process.HEAT;
+
     public Heater() {
         super();
     }

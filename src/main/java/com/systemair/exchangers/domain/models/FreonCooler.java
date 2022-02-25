@@ -8,8 +8,6 @@ import lombok.AllArgsConstructor;
 
 import java.util.Objects;
 
-import static com.systemair.exchangers.domain.Process.COOL;
-
 @AllArgsConstructor
 public class FreonCooler extends Cooler {
     private NameModel model;
@@ -64,7 +62,7 @@ public class FreonCooler extends Cooler {
         }
     }
 
-    public Process getProcess(){
+    public Process getProcess() {
         return this.process;
     }
 

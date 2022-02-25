@@ -9,13 +9,12 @@ import lombok.Getter;
 
 import java.util.Objects;
 
-import static com.systemair.exchangers.domain.Process.COOL;
-
 
 @AllArgsConstructor
 public class RoundCooler extends Cooler {
     private NameModel model;
     public static final String URL = "http://calculation.veab.com/ru-RU/Calculation/Index/CWK/HC";
+
     public RoundCooler() {
         this.typeMontage = TypeMontage.ROUND;
     }
@@ -24,6 +23,7 @@ public class RoundCooler extends Cooler {
     public void setModel(String model) {
         this.model = NameModel.valueOf(model);
     }
+
     @Getter
     private enum NameModel implements Describable {
         CWK_100_3("CWK 100-3-2,5"),
@@ -67,7 +67,7 @@ public class RoundCooler extends Cooler {
         return URL;
     }
 
-    public Process getProcess(){
+    public Process getProcess() {
         return this.process;
     }
 
@@ -85,7 +85,6 @@ public class RoundCooler extends Cooler {
                 ", model=" + model +
                 '}';
     }
-
 
 
 //    public NameModel getModel() {

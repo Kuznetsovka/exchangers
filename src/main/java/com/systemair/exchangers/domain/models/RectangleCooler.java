@@ -68,9 +68,10 @@ public class RectangleCooler extends Cooler {
         }
     }
 
-    public Process getProcess(){
+    public Process getProcess() {
         return this.process;
     }
+
     @Override
     public String getURL() {
         return URL;

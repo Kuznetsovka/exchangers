@@ -8,8 +8,6 @@ import lombok.AllArgsConstructor;
 
 import java.util.Objects;
 
-import static com.systemair.exchangers.domain.Process.HEAT;
-
 @AllArgsConstructor
 public class RectangleHeater extends Heater {
     public final String URL = "http://calculation.veab.com/ru-RU/Calculation/Index/PGV/H";
@@ -81,7 +79,7 @@ public class RectangleHeater extends Heater {
         return URL;
     }
 
-    public Process getProcess(){
+    public Process getProcess() {
         return this.process;
     }
 
