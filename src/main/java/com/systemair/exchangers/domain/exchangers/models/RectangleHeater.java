@@ -1,21 +1,20 @@
-package com.systemair.exchangers.domain.models;
+package com.systemair.exchangers.domain.exchangers.models;
 
 import com.systemair.exchangers.domain.Process;
 import com.systemair.exchangers.domain.TypeMontage;
 import com.systemair.exchangers.domain.exchangers.Heater;
 import com.systemair.exchangers.myInterface.Describable;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
 
 import java.util.Objects;
 
 @AllArgsConstructor
-public class RoundHeater extends Heater {
-    public NameModel model;
-    public static final String URL = "http://calculation.veab.com/ru-RU/Calculation/Index/CWW/H";
+public class RectangleHeater extends Heater {
+    public final String URL = "http://calculation.veab.com/ru-RU/Calculation/Index/PGV/H";
+    private NameModel model;
 
-    public RoundHeater() {
-        this.typeMontage = TypeMontage.ROUND;
+    public RectangleHeater() {
+        this.typeMontage = TypeMontage.RECTANGLE;
     }
 
     @Override
@@ -23,30 +22,37 @@ public class RoundHeater extends Heater {
         this.model = NameModel.valueOf(model);
     }
 
-    @Getter
     private enum NameModel implements Describable {
-        CWW_100_2("CWW 100-2-2,5"),
-        CWW_125_2("CWW 125-2-2,5"),
-        CWW_160_2("CWW 160-2-2,5"),
-        CWW_200_2("CWW 200-2-2,5"),
-        CWW_250_2("CWW 250-2-2,5"),
-        CWW_315_2("CWW 315-2-2,5"),
-        CWW_400_2("CWW 400-2-2,5"),
-        CWW_500_2("CWW 500-2-2,5"),
-        CWW_100_3("CWW 100-3-2,5"),
-        CWW_125_3("CWW 125-3-2,5"),
-        CWW_160_3("CWW 160-3-2,5"),
-        CWW_300_3("CWW 200-3-2,5"),
-        CWW_350_3("CWW 250-3-2,5"),
-        CWW_315_3("CWW 315-3-2,5"),
-        CWW_400_3("CWW 400-3-2,5");
+        PGV_250x150_2("PGV 250x150-2-2,5"),
+        PGV_400x200_2("PGV 400x200-2-2,5"),
+        PGV_400x200_4("PGV 400x200-4-2,5"),
+        PGV_500X250_2("PGV 500X250-2-2,5"),
+        PGV_500X250_4("PGV 500X250-4-2,5"),
+        PGV_500X300_2("PGV 500X300-2-2,5"),
+        PGV_500X300_4("PGV 500X300-4-2,5"),
+        PGV_500x400_2("PGV 500x400-2-2,5"),
+        PGV_500x400_4("PGV 500x400-4-2,5"),
+        PGV_600X300_2("PGV 600X300-2-2,5"),
+        PGV_600X300_4("PGV 600X300-4-2,5"),
+        PGV_600X350_2("PGV 600X350-2-2,5"),
+        PGV_600X350_4("PGV 600X350-4-2,5"),
+        PGV_700X400_2("PGV 700X400-2-2,5"),
+        PGV_700X400_3("PGV 700X400-3-2,5"),
+        PGV_800x400_2("PGV 800x400-2-2,5"),
+        PGV_800x400_3("PGV 800x400-3-2,5"),
+        PGV_800X500_2("PGV 800X500-2-2,5"),
+        PGV_800X500_3("PGV 800X500-3-2,5"),
+        PGV_1000X500_2("PGV 1000X500-2-2,5"),
+        PGV_1000X500_3("PGV 1000X500-3-2,5"),
+        PGV_1200X600_2("PGV 1200X600-2-2,5"),
+        PGV_1200X600_3("PGV 1200X600-3-2,5");
         private final String value;
 
         NameModel(String value) {
             this.value = value;
         }
 
-        public NameModel getByDescription(String description) {
+        public static NameModel getByDescription(String description) {
             for (NameModel desc : NameModel.values()) {
                 if (Objects.requireNonNull(desc.getTxt()).equals(description)) {
                     return desc;
@@ -87,7 +93,7 @@ public class RoundHeater extends Heater {
                 ", tOut=" + tOut +
                 ", typeMontage=" + typeMontage +
                 ", result=" + result +
-                ", type='" + process.getTxt() +
+                ", type='" + process.getTxt() + '\'' +
                 ", model=" + model +
                 '}';
     }

@@ -1,4 +1,4 @@
-package com.systemair.exchangers.domain.models;
+package com.systemair.exchangers.domain.exchangers.models;
 
 import com.systemair.exchangers.domain.Process;
 import com.systemair.exchangers.domain.TypeMontage;

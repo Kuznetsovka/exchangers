@@ -1,4 +1,4 @@
-package com.systemair.exchangers.domain.models;
+package com.systemair.exchangers.myInterface;
 
 public interface Modifiable {
     void setModel(String model);

@@ -5,7 +5,7 @@ import com.systemair.exchangers.domain.TypeMontage;
 import com.systemair.exchangers.domain.fluid.Fluid;
 import com.systemair.exchangers.domain.fluid.Freon;
 import com.systemair.exchangers.domain.fluid.Water;
-import com.systemair.exchangers.domain.models.Modifiable;
+import com.systemair.exchangers.myInterface.Modifiable;
 import lombok.Getter;
 import lombok.Setter;
 

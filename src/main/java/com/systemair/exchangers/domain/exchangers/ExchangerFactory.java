@@ -1,6 +1,6 @@
 package com.systemair.exchangers.domain.exchangers;
 
-import com.systemair.exchangers.domain.models.*;
+import com.systemair.exchangers.domain.exchangers.models.*;
 
 import static com.systemair.exchangers.domain.Process.HEAT;
 import static com.systemair.exchangers.domain.TypeMontage.ROUND;
