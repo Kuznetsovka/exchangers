@@ -60,15 +60,15 @@ public class VeabBrowserService extends BrowserServiceImpl {
             WebElement row = sbc.getDriver().findElement(By.id(String.valueOf(i)));
             double resultTOut = Double.parseDouble(row.getAttribute("data-airtemperatureoutlet"));
             if (process == HEAT) {
-                if (resultTOut >= tOut) return fillResult(tOut, row);
+                if (resultTOut >= tOut) return getResult(tOut, row);
             } else {
-                if (resultTOut <= tOut) return fillResult(tOut, row);
+                if (resultTOut <= tOut) return getResult(tOut, row);
             }
         }
         return null;
     }
 
-    private Result fillResult(int tOut, WebElement row) {
+    private Result getResult(int tOut, WebElement row) {
         double capacity = Double.parseDouble(row.getAttribute("data-capacity")) / 1000;
         long airDrop = Math.round(Double.parseDouble(row.getAttribute("data-airpressuredrop")));
         double airVelocity = Double.parseDouble(row.getAttribute("data-airvelocity"));
