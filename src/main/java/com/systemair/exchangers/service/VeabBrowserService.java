@@ -49,8 +49,6 @@ public class VeabBrowserService extends BrowserServiceImpl {
         }
         inputTextById("txtAirOutletTemperature", String.valueOf(exchanger.getTOut()));
         inputTextById("txtTolerance", String.valueOf(30));
-        clickElementIfExistsByXpath("//*[@id='Data']/div[13]/button");
-        waitResult();
     }
 
     @Override
@@ -76,6 +74,15 @@ public class VeabBrowserService extends BrowserServiceImpl {
         String fluidFlow = Math.scalb(Double.parseDouble(row.getAttribute("data-fldpressuredrop")), 2) + getTextByXPath("//span[contains(@class, 'clsLiquidFlow')]/br");
         String model = row.getAttribute("data-model");
         return new Result(capacity, tOut, airDrop, airVelocity, fluidDrop, fluidFlow, model);
+    }
+
+    @Override
+    public void calculation(String model) {
+        if (model.isEmpty())
+            clickElementIfExistsByXpath("//*[@id='Data']/div[13]/button");
+        else
+            selectModel(model);
+        waitResult();
     }
 
     private String getTextByXPath(String xpath) {

@@ -6,8 +6,6 @@ import com.systemair.exchangers.domain.exchangers.Cooler;
 import com.systemair.exchangers.myInterface.Describable;
 import lombok.AllArgsConstructor;
 
-import java.util.Objects;
-
 @AllArgsConstructor
 public class FreonCooler extends Cooler {
     private NameModel model;
@@ -15,11 +13,6 @@ public class FreonCooler extends Cooler {
 
     public FreonCooler() {
         this.typeMontage = TypeMontage.RECTANGLE;
-    }
-
-    @Override
-    public void setModel(String model) {
-        this.model = NameModel.valueOf(model);
     }
 
     public enum NameModel implements Describable {
@@ -40,15 +33,6 @@ public class FreonCooler extends Cooler {
             this.value = value;
         }
 
-        public static NameModel getByDescription(String description) {
-            for (NameModel desc : NameModel.values()) {
-                if (Objects.requireNonNull(desc.getTxt()).equals(description)) {
-                    return desc;
-                }
-            }
-            throw new IllegalArgumentException("Тип не соответствует доступным значениям!");
-        }
-
         @Override
         public String getTxt() {
             return this.value;
@@ -60,6 +44,21 @@ public class FreonCooler extends Cooler {
                     "value='" + value + '\'' +
                     '}';
         }
+    }
+
+    @Override
+    public void setModel(String model) {
+        this.model = NameModel.valueOf(model);
+    }
+
+    @Override
+    public String getModel() {
+        return model.value;
+    }
+
+    @Override
+    public String getURL() {
+        return URL;
     }
 
     public Process getProcess() {

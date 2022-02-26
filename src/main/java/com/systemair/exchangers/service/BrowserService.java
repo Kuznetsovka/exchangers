@@ -18,24 +18,6 @@ public interface BrowserService {
     void inputTextById(String id, String newValue) throws InterruptedException;
 
     Result getResult(Process process, int tOut);
-//
-//    void initializeBrowser();
-//
-//    void setNegativeLimit(String negativeLimit);
-//
-//    void setPositiveLimit(String positiveLimit);
-//
-//    void onCheckbox(boolean onAction, WebElement webElement);
-//
-//    void onCheckboxDiagram(WebElement webElement);
-//
-//    void prepareStartPageBeforeCalculation();
-//
-//    void inputTextByLabel(String findTextLabel, String newValue) throws InterruptedException;
-//
-//    void fillFlowAndDrop(String airFlow, String airDrop);
-//
-//    void changeMeasureValueOnTableByIndex(String newValue, int index);
-//
-//    SingletonBrowserClass getSbc();
+
+    void calculation(String txt);
 }

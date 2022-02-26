@@ -7,8 +7,6 @@ import com.systemair.exchangers.myInterface.Describable;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
-import java.util.Objects;
-
 @AllArgsConstructor
 public class RoundHeater extends Heater {
     public NameModel model;
@@ -16,11 +14,6 @@ public class RoundHeater extends Heater {
 
     public RoundHeater() {
         this.typeMontage = TypeMontage.ROUND;
-    }
-
-    @Override
-    public void setModel(String model) {
-        this.model = NameModel.valueOf(model);
     }
 
     @Getter
@@ -46,15 +39,6 @@ public class RoundHeater extends Heater {
             this.value = value;
         }
 
-        public NameModel getByDescription(String description) {
-            for (NameModel desc : NameModel.values()) {
-                if (Objects.requireNonNull(desc.getTxt()).equals(description)) {
-                    return desc;
-                }
-            }
-            throw new IllegalArgumentException("Тип не соответствует доступным значениям!");
-        }
-
         @Override
         public String toString() {
             return "NameModel{" +
@@ -75,6 +59,16 @@ public class RoundHeater extends Heater {
 
     public Process getProcess() {
         return this.process;
+    }
+
+    @Override
+    public void setModel(String model) {
+        this.model = NameModel.valueOf(model);
+    }
+
+    @Override
+    public String getModel() {
+        return model.value;
     }
 
     @Override

@@ -16,15 +16,6 @@ public enum TypeMontage implements Describable {
         return this.description;
     }
 
-    public static TypeMontage getByDescription(String description) {
-        for (TypeMontage desc : TypeMontage.values()) {
-            if (desc.getTxt().equals(description)) {
-                return desc;
-            }
-        }
-        throw new IllegalArgumentException("Тип монтажа не соответствует доступным значениям!");
-    }
-
     @Override
     public String toString() {
         return this.description;
