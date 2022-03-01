@@ -63,7 +63,7 @@ public class RectangleCooler extends Cooler {
 
     @Override
     public String getModel() {
-        return model.getTxt();
+        return model != null ? model.value : "";
     }
 
     @Override

@@ -1,10 +1,10 @@
 package com.systemair.exchangers;
 
 import com.systemair.exchangers.domain.exchangers.Exchanger;
-import com.systemair.exchangers.domain.exchangers.ExchangerFactory;
-import com.systemair.exchangers.domain.exchangers.Heater;
-import com.systemair.exchangers.service.*;
-import lombok.Getter;
+import com.systemair.exchangers.service.BrowserService;
+import com.systemair.exchangers.service.ExchangersService;
+import com.systemair.exchangers.service.ExchangersServiceImpl;
+import com.systemair.exchangers.service.VeabBrowserService;
 
 public class ExchangersApplication {
     private final ExchangersService exchangersService = new ExchangersServiceImpl();
@@ -28,10 +28,9 @@ public class ExchangersApplication {
         browserService.navigate(exchanger.getURL());
         browserService.fillTechData(exchanger);
         System.out.println(exchanger);
-        //browserService.calculation(exchanger.getModel());
+        browserService.calculation(exchanger.getModel());
         exchanger.setResult(browserService.getResult(exchanger.getProcess(), exchanger.getTOut()));
         System.out.println(exchanger.getResult());
-        browserService.stop();
         return exchanger;
     }
 
