@@ -7,8 +7,6 @@ import com.systemair.exchangers.myInterface.Describable;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
-import java.util.Objects;
-
 
 @AllArgsConstructor
 public class RoundCooler extends Cooler {
@@ -17,11 +15,6 @@ public class RoundCooler extends Cooler {
 
     public RoundCooler() {
         this.typeMontage = TypeMontage.ROUND;
-    }
-
-    @Override
-    public void setModel(String model) {
-        this.model = NameModel.valueOf(model);
     }
 
     @Getter
@@ -39,16 +32,6 @@ public class RoundCooler extends Cooler {
             this.value = value;
         }
 
-
-        public NameModel getByDescription(String description) {
-            for (NameModel desc : NameModel.values()) {
-                if (Objects.requireNonNull(desc.getTxt()).equals(description)) {
-                    return desc;
-                }
-            }
-            throw new IllegalArgumentException("Тип не соответствует доступным значениям!");
-        }
-
         @Override
         public String toString() {
             return "NameModel{" +
@@ -60,6 +43,16 @@ public class RoundCooler extends Cooler {
         public String getTxt() {
             return this.value;
         }
+    }
+
+    @Override
+    public void setModel(String model) {
+        this.model = NameModel.valueOf(model);
+    }
+
+    @Override
+    public String getModel() {
+        return model.getTxt();
     }
 
     @Override

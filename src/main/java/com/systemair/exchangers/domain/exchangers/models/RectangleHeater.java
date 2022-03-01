@@ -6,8 +6,6 @@ import com.systemair.exchangers.domain.exchangers.Heater;
 import com.systemair.exchangers.myInterface.Describable;
 import lombok.AllArgsConstructor;
 
-import java.util.Objects;
-
 @AllArgsConstructor
 public class RectangleHeater extends Heater {
     public final String URL = "http://calculation.veab.com/ru-RU/Calculation/Index/PGV/H";
@@ -15,11 +13,6 @@ public class RectangleHeater extends Heater {
 
     public RectangleHeater() {
         this.typeMontage = TypeMontage.RECTANGLE;
-    }
-
-    @Override
-    public void setModel(String model) {
-        this.model = NameModel.valueOf(model);
     }
 
     private enum NameModel implements Describable {
@@ -52,15 +45,6 @@ public class RectangleHeater extends Heater {
             this.value = value;
         }
 
-        public static NameModel getByDescription(String description) {
-            for (NameModel desc : NameModel.values()) {
-                if (Objects.requireNonNull(desc.getTxt()).equals(description)) {
-                    return desc;
-                }
-            }
-            throw new IllegalArgumentException("Тип не соответствует доступным значениям!");
-        }
-
         @Override
         public String toString() {
             return "NameModel{" +
@@ -72,6 +56,16 @@ public class RectangleHeater extends Heater {
         public String getTxt() {
             return this.value;
         }
+    }
+
+    @Override
+    public void setModel(String model) {
+        this.model = NameModel.valueOf(model);
+    }
+
+    @Override
+    public String getModel() {
+        return (model != null) ? model.getTxt() : "";
     }
 
     @Override

@@ -7,8 +7,6 @@ import com.systemair.exchangers.myInterface.Describable;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
-import java.util.Objects;
-
 @AllArgsConstructor
 public class RectangleCooler extends Cooler {
     private NameModel model;
@@ -16,11 +14,6 @@ public class RectangleCooler extends Cooler {
 
     public RectangleCooler() {
         this.typeMontage = TypeMontage.RECTANGLE;
-    }
-
-    @Override
-    public void setModel(String model) {
-        this.model = RectangleCooler.NameModel.valueOf(model);
     }
 
     @Getter
@@ -53,15 +46,6 @@ public class RectangleCooler extends Cooler {
             this.value = value;
         }
 
-        public static NameModel getByDescription(String description) {
-            for (NameModel desc : NameModel.values()) {
-                if (Objects.requireNonNull(desc.getTxt()).equals(description)) {
-                    return desc;
-                }
-            }
-            throw new IllegalArgumentException("Тип не соответствует доступным значениям!");
-        }
-
         @Override
         public String getTxt() {
             return this.value;
@@ -70,6 +54,16 @@ public class RectangleCooler extends Cooler {
 
     public Process getProcess() {
         return this.process;
+    }
+
+    @Override
+    public void setModel(String model) {
+        this.model = RectangleCooler.NameModel.valueOf(model);
+    }
+
+    @Override
+    public String getModel() {
+        return model.getTxt();
     }
 
     @Override

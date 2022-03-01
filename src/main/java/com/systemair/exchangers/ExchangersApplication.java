@@ -28,8 +28,19 @@ public class ExchangersApplication {
         browserService.navigate(exchanger.getURL());
         browserService.fillTechData(exchanger);
         System.out.println(exchanger);
-        // В конце
-        //browserService.selectModel("PGV 500x400-4-2,5");
+        browserService.calculation(exchanger.getModel());
+        exchanger.setResult(browserService.getResult(exchanger.getProcess(), exchanger.getTOut()));
+        System.out.println(exchanger.getResult());
+        browserService.stop();
+    }
+
+    public static void run(String[] args) {
+        checkArgsService.checkArgs(args);
+        Exchanger exchanger = exchangersService.getExchanger(args);
+        browserService.navigate(exchanger.getURL());
+        browserService.fillTechData(exchanger);
+        System.out.println(exchanger);
+        browserService.calculation(exchanger.getModel());
         exchanger.setResult(browserService.getResult(exchanger.getProcess(), exchanger.getTOut()));
         System.out.println(exchanger.getResult());
         return exchanger;

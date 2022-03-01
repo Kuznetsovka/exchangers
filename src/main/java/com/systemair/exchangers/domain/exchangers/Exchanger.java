@@ -24,6 +24,8 @@ public abstract class Exchanger implements Modifiable {
     public String URL;
     protected TypeMontage typeMontage;
     protected Result result;
+    protected String model;
+
 
     public void setFluid(String fluid, int mixture, int tInFluid, int tOutFluid) {
         if (isFreon(fluid))
@@ -58,6 +60,8 @@ public abstract class Exchanger implements Modifiable {
     }
 
     public abstract void setModel(String model);
+
+    public abstract String getModel();
 
     public abstract Process getProcess();
 }

@@ -49,47 +49,4 @@ public abstract class BrowserServiceImpl implements BrowserService {
         sbc.getWait().until(elementToBeClickable(by)).click();
         LOGGER.info("Кнопка нажата!");
     }
-//    protected boolean isContainsInClass(WebElement webElement, String text) {
-//        return webElement.getAttribute("class").contains(text);
-//    }
-//
-//    protected boolean isWarning() {
-//        boolean isWarning;
-//        By byWarning = By.xpath(".//span[@type='warning']");
-//        try {
-//            sbc.getDriver().manage().timeouts().implicitlyWait(Duration.ofMillis(1500));
-//            isWarning = sbc.getDriver().findElements(byWarning).size() > 0;
-//        } finally {
-//            sbc.getDriver().manage().timeouts().implicitlyWait(Duration.ofSeconds(MAX_LIMIT_TIMEOUT));
-//        }
-//        LOGGER.info("Warning is " + isWarning);
-//        return isWarning;
-//    }
-//
-//    protected boolean isExistElementMoreThenTwo(By by) {
-//        boolean isExists;
-//        isExists = sbc.getDriver().findElements(by).size() > 2;
-//        return isExists;
-//    }
-//
-//    protected void clickWithoutTimeOut(By by) {
-//        try {
-//            sbc.getDriver().manage().timeouts().implicitlyWait(Duration.ofSeconds(1));
-//            sbc.getDriver().findElement(by).click();
-//        } finally {
-//            sbc.getDriver().manage().timeouts().implicitlyWait(Duration.ofSeconds(MAX_LIMIT_TIMEOUT));
-//        }
-//    }
-//
-//    protected WebElement getWebElementByXpath(String xpath) {
-//        List<Optional<WebElement>> webElements = sbc.getWait().until(ExpectedConditions.numberOfElementsToBeMoreThan(By.xpath(xpath), 0)).stream().map(Optional::of).collect(Collectors.toList());
-//        return webElements.get(0).orElseThrow(IllegalArgumentException::new);
-//    }
-//
-
-//
-//    protected void clickElementWithScroll(WebElement webElement) {
-//        ((JavascriptExecutor) sbc.getDriver()).executeScript("arguments[0].scrollIntoView(true);", webElement);
-//        sbc.getWait().until(elementToBeClickable(webElement)).click();
-//    }
 }
