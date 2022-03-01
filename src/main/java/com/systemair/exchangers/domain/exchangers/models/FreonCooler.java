@@ -68,7 +68,7 @@ public class FreonCooler extends Cooler {
 
     @Override
     public String toString() {
-        return "RectangleCooler{" +
+        return "FreonCooler{" +
                 "tIn=" + tIn +
                 ", uIn=" + uIn +
                 ", airFlow=" + airFlow +

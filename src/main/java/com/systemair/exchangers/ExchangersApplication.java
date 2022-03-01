@@ -2,13 +2,13 @@ package com.systemair.exchangers;
 
 import com.systemair.exchangers.domain.exchangers.Exchanger;
 import com.systemair.exchangers.domain.exchangers.ExchangerFactory;
+import com.systemair.exchangers.domain.exchangers.Heater;
 import com.systemair.exchangers.service.*;
+import lombok.Getter;
 
 public class ExchangersApplication {
-    private static final ExchangerFactory exchangerFactory = new ExchangerFactory();
-    private static final ExchangersService exchangersService = new ExchangersServiceImpl(exchangerFactory);
-    private static final BrowserService browserService = new VeabBrowserService();
-    private static final CheckService checkArgsService = new CheckServiceImpl();
+    private final ExchangersService exchangersService = new ExchangersServiceImpl();
+    private final BrowserService browserService = new VeabBrowserService();
 
     /**
      * 0 - Тип монтажа
@@ -22,12 +22,9 @@ public class ExchangersApplication {
      * 8 - Т входа жидкости
      * 9 - Т выхода жидкости
      * 10 - Модель
-     *
-     * @param args
      */
-    public static void main(String[] args) {
-        checkArgsService.checkArgs(args);
-        Exchanger exchanger = exchangersService.getExchanger(args);
+
+    public Exchanger run(Exchanger exchanger) {
         browserService.navigate(exchanger.getURL());
         browserService.fillTechData(exchanger);
         System.out.println(exchanger);
@@ -35,6 +32,14 @@ public class ExchangersApplication {
         //browserService.selectModel("PGV 500x400-4-2,5");
         exchanger.setResult(browserService.getResult(exchanger.getProcess(), exchanger.getTOut()));
         System.out.println(exchanger.getResult());
+        return exchanger;
+    }
+
+    public void stop(){
         browserService.stop();
+    }
+
+    public ExchangersService getExchangersService() {
+        return exchangersService;
     }
 }

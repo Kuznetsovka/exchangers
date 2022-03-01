@@ -73,7 +73,7 @@ public class RoundCooler extends Cooler {
 
     @Override
     public String toString() {
-        return "RectangleCooler{" +
+        return "RoungCooler{" +
                 "tIn=" + tIn +
                 ", uIn=" + uIn +
                 ", airFlow=" + airFlow +

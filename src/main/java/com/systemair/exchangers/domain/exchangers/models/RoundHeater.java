@@ -79,7 +79,7 @@ public class RoundHeater extends Heater {
 
     @Override
     public String toString() {
-        return "RectangleCooler{" +
+        return "RoundHeater{" +
                 "tIn=" + tIn +
                 ", uIn=" + uIn +
                 ", airFlow=" + airFlow +
