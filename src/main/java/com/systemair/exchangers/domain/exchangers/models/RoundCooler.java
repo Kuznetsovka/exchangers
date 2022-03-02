@@ -52,7 +52,7 @@ public class RoundCooler extends Cooler {
 
     @Override
     public String getModel() {
-        return model.getTxt();
+        return (model != null) ? model.getTxt() : "";
     }
 
     @Override
@@ -78,9 +78,4 @@ public class RoundCooler extends Cooler {
                 ", model=" + model +
                 '}';
     }
-
-
-//    public NameModel getModel() {
-//        return model;
-//    }
 }

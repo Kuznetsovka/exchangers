@@ -1,5 +1,6 @@
 package com.systemair.exchangers.service;
 
+import com.systemair.exchangers.domain.Browser;
 import com.systemair.exchangers.domain.Process;
 import com.systemair.exchangers.domain.exchangers.Exchanger;
 import com.systemair.exchangers.domain.exchangers.Result;
@@ -8,16 +9,17 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
+
 import static com.systemair.exchangers.domain.Process.COOL;
 import static com.systemair.exchangers.domain.Process.HEAT;
 import static com.systemair.exchangers.domain.fluid.Freon.TypeFreon.isFreon;
 import static java.lang.System.exit;
 
 public class VeabBrowserService extends BrowserServiceImpl {
-
     @Override
     public void navigate(String url) {
-        sbc.getDriver().navigate().to(url);
+        browser.getDriver().switchTo().window("1");
+        browser.getDriver().navigate().to(url);
     }
 
     @Override
@@ -28,7 +30,7 @@ public class VeabBrowserService extends BrowserServiceImpl {
     @Override
     public void stop() {
         //LOGGER.info("Закрытие сессии!");
-        sbc.getDriver().quit();
+        browser.getDriver().quit();
         exit(0);
     }
 
@@ -53,9 +55,9 @@ public class VeabBrowserService extends BrowserServiceImpl {
 
     @Override
     public Result getResult(Process process, int tOut) {
-        int rows = sbc.getDriver().findElements(By.xpath("//*[@id='tblResultProduct']/tbody/tr")).size();
+        int rows = browser.getDriver().findElements(By.xpath("//*[@id='tblResultProduct']/tbody/tr")).size();
         for (int i = 0; i < rows; i++) {
-            WebElement row = sbc.getDriver().findElement(By.id(String.valueOf(i)));
+            WebElement row = browser.getDriver().findElement(By.id(String.valueOf(i)));
             double resultTOut = Double.parseDouble(row.getAttribute("data-airtemperatureoutlet"));
             if (process == HEAT) {
                 if (resultTOut >= tOut) return getResult(tOut, row);
@@ -85,11 +87,16 @@ public class VeabBrowserService extends BrowserServiceImpl {
         waitResult();
     }
 
+    @Override
+    public void setBrowser(Browser browser) {
+        this.browser = browser;
+    }
+
     private String getTextByXPath(String xpath) {
-        return sbc.getDriver().findElement(By.xpath(xpath)).getText();
+        return browser.getDriver().findElement(By.xpath(xpath)).getText();
     }
 
     private void waitResult() {
-        sbc.getWait().until(ExpectedConditions.visibilityOfElementLocated(By.id("0")));
+        browser.getWait().until(ExpectedConditions.visibilityOfElementLocated(By.id("0")));
     }
 }

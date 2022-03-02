@@ -68,7 +68,7 @@ public class RoundHeater extends Heater {
 
     @Override
     public String getModel() {
-        return model.value;
+        return (model != null) ? model.getTxt() : "";
     }
 
     @Override
@@ -86,7 +86,4 @@ public class RoundHeater extends Heater {
                 '}';
     }
 
-//    public NameModel getModel() {
-//        return model;
-//    }
 }

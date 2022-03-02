@@ -53,7 +53,7 @@ public class FreonCooler extends Cooler {
 
     @Override
     public String getModel() {
-        return model.value;
+        return (model != null) ? model.getTxt() : "";
     }
 
     @Override

@@ -1,5 +1,6 @@
 package com.systemair.exchangers.service;
 
+import com.systemair.exchangers.domain.Browser;
 import com.systemair.exchangers.domain.Process;
 import com.systemair.exchangers.domain.exchangers.Exchanger;
 import com.systemair.exchangers.domain.exchangers.Result;
@@ -20,4 +21,6 @@ public interface BrowserService {
     Result getResult(Process process, int tOut);
 
     void calculation(String txt);
+
+    void setBrowser(Browser browser);
 }
