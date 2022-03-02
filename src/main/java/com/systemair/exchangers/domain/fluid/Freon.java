@@ -41,6 +41,11 @@ public class Freon extends Fluid {
         }
 
         @Override
+        public String getModelSystemair() {
+            return null;
+        }
+
+        @Override
         public String getTxt() {
             return String.valueOf(this.value);
         }

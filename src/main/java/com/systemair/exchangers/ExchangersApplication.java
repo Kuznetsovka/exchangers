@@ -26,6 +26,7 @@ public class ExchangersApplication {
 
     public Exchanger run(WebDriver driver, Wait<WebDriver> wait, Exchanger exchanger) {
         if (browser == null) browser = new Browser(driver, wait);
+        if (exchanger == null) return null;
         browserService.setBrowser(browser);
         browserService.navigate(exchanger.getURL());
         browserService.fillTechData(exchanger);
