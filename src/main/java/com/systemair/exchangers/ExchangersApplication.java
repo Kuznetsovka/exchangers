@@ -36,10 +36,6 @@ public class ExchangersApplication {
         return exchanger;
     }
 
-    public void stop(){
-        browserService.stop();
-    }
-
     public ExchangersService getExchangersService() {
         return exchangersService;
     }

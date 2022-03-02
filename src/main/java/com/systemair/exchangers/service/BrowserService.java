@@ -10,8 +10,6 @@ public interface BrowserService {
 
     void selectModel(String model);
 
-    void stop();
-
     void changeValueComboBoxByLabel(String id, String newValue);
 
     void fillTechData(Exchanger exchanger);

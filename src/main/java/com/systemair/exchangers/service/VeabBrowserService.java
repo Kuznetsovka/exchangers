@@ -7,18 +7,21 @@ import com.systemair.exchangers.domain.exchangers.Result;
 import com.systemair.exchangers.domain.fluid.Water;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.WindowType;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
 
 import static com.systemair.exchangers.domain.Process.COOL;
 import static com.systemair.exchangers.domain.Process.HEAT;
 import static com.systemair.exchangers.domain.fluid.Freon.TypeFreon.isFreon;
-import static java.lang.System.exit;
 
 public class VeabBrowserService extends BrowserServiceImpl {
+    private String secondWindow = "";
     @Override
     public void navigate(String url) {
-        browser.getDriver().switchTo().window("1");
+        if (secondWindow.isEmpty())
+            browser.getDriver().switchTo().newWindow(WindowType.TAB);
+        secondWindow = browser.getDriver().getWindowHandle();
         browser.getDriver().navigate().to(url);
     }
 
@@ -27,12 +30,6 @@ public class VeabBrowserService extends BrowserServiceImpl {
         changeValueComboBoxByLabel("selSingleSelection", model);
     }
 
-    @Override
-    public void stop() {
-        //LOGGER.info("Закрытие сессии!");
-        browser.getDriver().quit();
-        exit(0);
-    }
 
     @Override
     public void fillTechData(Exchanger exchanger) {
