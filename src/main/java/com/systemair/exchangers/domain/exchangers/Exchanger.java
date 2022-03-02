@@ -64,4 +64,6 @@ public abstract class Exchanger implements Modifiable {
     public abstract String getModel();
 
     public abstract Process getProcess();
+
+    public abstract String getModelByVeabModel(String model);
 }

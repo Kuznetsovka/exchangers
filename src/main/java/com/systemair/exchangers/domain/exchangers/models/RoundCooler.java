@@ -7,6 +7,10 @@ import com.systemair.exchangers.myInterface.Describable;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+import java.util.Objects;
+
+import static com.systemair.exchangers.domain.exchangers.models.RoundCooler.NameModel.getByDescription;
+
 
 @AllArgsConstructor
 public class RoundCooler extends Cooler {
@@ -18,18 +22,28 @@ public class RoundCooler extends Cooler {
     }
 
     @Getter
-    private enum NameModel implements Describable {
-        CWK_100_3("CWK 100-3-2,5"),
-        CWK_125_3("CWK 125-3-2,5"),
-        CWK_160_3("CWK 160-3-2,5"),
-        CWK_300_3("CWK 200-3-2,5"),
-        CWK_350_3("CWK 250-3-2,5"),
-        CWK_315_3("CWK 315-3-2,5"),
-        CWK_400_3("CWK 400-3-2,5");
+    protected enum NameModel implements Describable {
+        CWK_100_3("CWK 100-3-2,5", "CWK 100-3-2,5"),
+        CWK_125_3("CWK 125-3-2,5", "CWK 125-3-2,5"),
+        CWK_160_3("CWK 160-3-2,5", "CWK 160-3-2,5"),
+        CWK_300_3("CWK 200-3-2,5", "CWK 200-3-2,5"),
+        CWK_350_3("CWK 250-3-2,5", "CWK 250-3-2,5"),
+        CWK_315_3("CWK 315-3-2,5", "CWK 315-3-2,5"),
+        CWK_400_3("CWK 400-3-2,5", "CWK 400-3-2,5");
         private final String value;
-
-        NameModel(String value) {
+        private final String modelSystemair;
+        NameModel(String value, String modelSystemair) {
             this.value = value;
+            this.modelSystemair = modelSystemair;
+        }
+
+        public static NameModel getByDescription(String modelVeab) {
+            for (NameModel desc : NameModel.values()) {
+                if (Objects.requireNonNull(desc.getTxt()).equals(modelVeab)) {
+                    return desc;
+                }
+            }
+            throw new IllegalArgumentException("Тип не соответствует доступным значениям!");
         }
 
         @Override
@@ -37,6 +51,11 @@ public class RoundCooler extends Cooler {
             return "NameModel{" +
                     "value='" + value + '\'' +
                     '}';
+        }
+
+        @Override
+        public String getModelSystemair() {
+            return modelSystemair;
         }
 
         @Override
@@ -65,8 +84,13 @@ public class RoundCooler extends Cooler {
     }
 
     @Override
+    public String getModelByVeabModel(String model) {
+        return getByDescription(model).getModelSystemair();
+    }
+
+    @Override
     public String toString() {
-        return "RoungCooler{" +
+        return "RoundCooler{" +
                 "tIn=" + tIn +
                 ", uIn=" + uIn +
                 ", airFlow=" + airFlow +

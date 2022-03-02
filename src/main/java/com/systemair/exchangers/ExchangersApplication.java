@@ -9,7 +9,7 @@ import org.openqa.selenium.support.ui.Wait;
 public class ExchangersApplication {
     private final ExchangersService exchangersService = new ExchangersServiceImpl();
     private final BrowserService browserService = new VeabBrowserService();
-
+    private Browser browser;
     /**
      * 0 - Тип монтажа
      * 1 - Тип теплообменника
@@ -25,7 +25,7 @@ public class ExchangersApplication {
      */
 
     public Exchanger run(WebDriver driver, Wait<WebDriver> wait, Exchanger exchanger) {
-        Browser browser = new Browser(driver, wait);
+        if (browser == null) browser = new Browser(driver, wait);
         browserService.setBrowser(browser);
         browserService.navigate(exchanger.getURL());
         browserService.fillTechData(exchanger);
