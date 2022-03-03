@@ -37,10 +37,12 @@ public class RoundHeater extends Heater {
         CWW_400_3("CWW 400-3-2,5", "VBC 400-3-2,5");
         private final String value;
         private final String modelSystemair;
+
         NameModel(String value, String modelSystemair) {
             this.value = value;
             this.modelSystemair = modelSystemair;
         }
+
 
         public static NameModel getByDescription(String modelVeab) {
             for (NameModel desc : NameModel.values()) {
@@ -51,10 +53,19 @@ public class RoundHeater extends Heater {
             throw new IllegalArgumentException("Тип не соответствует доступным значениям!");
         }
 
+        public static NameModel getBySystemairName(String modelSystemair) {
+            for (NameModel desc : NameModel.values()) {
+                if (Objects.requireNonNull(desc.getModelSystemair()).equals(modelSystemair)) {
+                    return desc;
+                }
+            }
+            throw new IllegalArgumentException("Тип не соответствует доступным значениям!");
+        }
+
         @Override
         public String toString() {
             return "NameModel{" +
-                    "value='" + value + '\'' +
+                    "value=" + value + '\'' +
                     '}';
         }
 
@@ -80,7 +91,7 @@ public class RoundHeater extends Heater {
 
     @Override
     public void setModel(String model) {
-        this.model = NameModel.valueOf(model);
+        this.model = NameModel.getBySystemairName(model);
     }
 
     @Override
@@ -90,7 +101,7 @@ public class RoundHeater extends Heater {
 
     @Override
     public String getModelSystemair() {
-        return  (model != null) ? this.model.getModelSystemair() : "";
+        return (model != null) ? this.model.getModelSystemair() : "";
     }
 
     @Override

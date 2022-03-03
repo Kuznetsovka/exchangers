@@ -25,7 +25,7 @@ public abstract class Exchanger implements Modifiable {
     protected TypeMontage typeMontage;
     protected Result result;
     protected String model;
-
+    protected Process process;
 
     public void setFluid(String fluid, int mixture, int tInFluid, int tOutFluid) {
         if (isFreon(fluid))

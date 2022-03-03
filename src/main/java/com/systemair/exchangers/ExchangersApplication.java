@@ -2,7 +2,10 @@ package com.systemair.exchangers;
 
 import com.systemair.exchangers.domain.Browser;
 import com.systemair.exchangers.domain.exchangers.Exchanger;
-import com.systemair.exchangers.service.*;
+import com.systemair.exchangers.service.BrowserService;
+import com.systemair.exchangers.service.ExchangersService;
+import com.systemair.exchangers.service.ExchangersServiceImpl;
+import com.systemair.exchangers.service.VeabBrowserService;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.Wait;
 
@@ -10,6 +13,7 @@ public class ExchangersApplication {
     private final ExchangersService exchangersService = new ExchangersServiceImpl();
     private final BrowserService browserService = new VeabBrowserService();
     private Browser browser;
+
     /**
      * 0 - Тип монтажа
      * 1 - Тип теплообменника

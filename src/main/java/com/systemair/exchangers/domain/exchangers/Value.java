@@ -13,7 +13,7 @@ public class Value {
 
 
     public Value(double value, String measure, int decimalPoint) {
-        this.value = String.format("%." + decimalPoint + "f", value);
+        this.value = String.format("%." + decimalPoint + "f", value).replace(",", ".");
         this.measure = measure;
         this.decimalPoint = decimalPoint;
         this.valueWithMeasure = this.value + " " + measure;

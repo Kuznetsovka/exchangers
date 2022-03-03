@@ -12,19 +12,20 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.WindowType;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
-
 import static com.systemair.exchangers.domain.Process.COOL;
 import static com.systemair.exchangers.domain.Process.HEAT;
 import static com.systemair.exchangers.domain.fluid.Freon.TypeFreon.isFreon;
 
 public class VeabBrowserService extends BrowserServiceImpl {
     private String secondWindow = "";
+
     @Override
     public void navigate(String url) {
         if (secondWindow.isEmpty())
             browser.getDriver().switchTo().newWindow(WindowType.TAB);
         secondWindow = browser.getDriver().getWindowHandle();
         browser.getDriver().navigate().to(url);
+        //TODO Ожижание переключения
     }
 
     @Override
@@ -78,12 +79,12 @@ public class VeabBrowserService extends BrowserServiceImpl {
         String measureFluidFlow = getTextByXPath("//span[contains(@class, 'clsLiquidFlow')]");
         String model = row.getAttribute("data-model");
         return new Result(
-                new Value(capacity,"kW",2),
-                new Value(tOut,"",1),
-                new Value(airDrop,"Pa",0),
-                new Value(airVelocity,"m/s",2),
-                new Value(fluidDrop,measureFluidDrop,2),
-                new Value(fluidFlow, measureFluidFlow,3),
+                new Value(capacity, "kW", 2),
+                new Value(tOut, "", 1),
+                new Value(airDrop, "Pa", 0),
+                new Value(airVelocity, "m/s", 2),
+                new Value(fluidDrop, measureFluidDrop, 2),
+                new Value(fluidFlow, measureFluidFlow, 3),
                 model);
     }
 

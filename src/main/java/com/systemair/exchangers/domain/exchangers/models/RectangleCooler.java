@@ -9,8 +9,6 @@ import lombok.Getter;
 
 import java.util.Objects;
 
-import static com.systemair.exchangers.domain.exchangers.models.RectangleCooler.NameModel.getByDescription;
-
 @AllArgsConstructor
 public class RectangleCooler extends Cooler {
     private NameModel model;
@@ -31,8 +29,8 @@ public class RectangleCooler extends Cooler {
         PGK_700X400_3("PGK 700X400-3-2,0", "PGK 70-40-3"),
         PGK_800x400_3("PGK 800x400-3-2,0", "PGK 80-40-3"),
         PGK_800X500_3("PGK 800X500-3-2,0", "PGK 80-50-3"),
-        PGK_1000X500_3("PGK 1000X500-3-2,0","PGK 100-50-3"),
-        PGK_1200X600_3("PGK 1200X600-3-2,0","PGK 120-60-3"),
+        PGK_1000X500_3("PGK 1000X500-3-2,0", "PGK 100-50-3"),
+        PGK_1200X600_3("PGK 1200X600-3-2,0", "PGK 120-60-3"),
         PGK_250X150_4("PGK 250X150-4-2,0", "PGK 25-15-4"),
         PGK_400x200_4("PGK 400x200-4-2,0", "PGK 40-20-4"),
         PGK_500x250_4("PGK 500x250-4-2,0", "PGK 50-25-4"),
@@ -43,12 +41,22 @@ public class RectangleCooler extends Cooler {
         PGK_700x400_4("PGK 700x400-4-2,0", "PGK 70-40-4"),
         PGK_800x400_4("PGK 800x400-4-2,0", "PGK 80-40-4"),
         PGK_800x500_4("PGK 800x500-4-2,0", "PGK 80-50-4"),
-        PGK_1000x500_4("PGK 1000x500-4-2,0","PGK 100-50-4");
+        PGK_1000x500_4("PGK 1000x500-4-2,0", "PGK 100-50-4");
         private final String value;
         private final String modelSystemair;
+
         public static NameModel getByDescription(String modelVeab) {
             for (NameModel desc : NameModel.values()) {
                 if (Objects.requireNonNull(desc.getTxt()).equals(modelVeab)) {
+                    return desc;
+                }
+            }
+            throw new IllegalArgumentException("Тип не соответствует доступным значениям!");
+        }
+
+        public static NameModel getBySystemairName(String modelSystemair) {
+            for (NameModel desc : NameModel.values()) {
+                if (Objects.requireNonNull(desc.getModelSystemair()).equals(modelSystemair)) {
                     return desc;
                 }
             }
@@ -72,12 +80,12 @@ public class RectangleCooler extends Cooler {
 
     @Override
     public String getModelSystemair() {
-        return  (model != null) ? this.model.getModelSystemair() : "";
+        return (model != null) ? this.model.getModelSystemair() : "";
     }
 
     @Override
     public void setModel(String model) {
-        this.model = RectangleCooler.NameModel.valueOf(model);
+        this.model = NameModel.getBySystemairName(model);
     }
 
     @Override
@@ -100,7 +108,7 @@ public class RectangleCooler extends Cooler {
                 ", tOut=" + tOut +
                 ", typeMontage=" + typeMontage +
                 ", result=" + result +
-                ", type='" + process.getTxt() + '\'' +
+                ", type=" + process.getTxt() + '\'' +
                 ", model=" + model +
                 '}';
     }

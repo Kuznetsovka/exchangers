@@ -8,8 +8,6 @@ import lombok.AllArgsConstructor;
 
 import java.util.Objects;
 
-import static com.systemair.exchangers.domain.exchangers.models.FreonCooler.NameModel.getByDescription;
-
 @AllArgsConstructor
 public class FreonCooler extends Cooler {
     private NameModel model;
@@ -33,6 +31,7 @@ public class FreonCooler extends Cooler {
         PGDX_1200x600_3("PGDX 1200x600-3-2,5", "DXRE 120-60-3");
         private final String value;
         private final String modelSystemair;
+
         NameModel(String value, String modelSystemair) {
             this.value = value;
             this.modelSystemair = modelSystemair;
@@ -57,17 +56,26 @@ public class FreonCooler extends Cooler {
             throw new IllegalArgumentException("Тип не соответствует доступным значениям!");
         }
 
+        public static NameModel getBySystemairName(String modelSystemair) {
+            for (NameModel desc : NameModel.values()) {
+                if (Objects.requireNonNull(desc.getModelSystemair()).equals(modelSystemair)) {
+                    return desc;
+                }
+            }
+            throw new IllegalArgumentException("Тип не соответствует доступным значениям!");
+        }
+
         @Override
         public String toString() {
             return "NameModel{" +
-                    "value='" + value + '\'' +
+                    "value=" + value + '\'' +
                     '}';
         }
     }
 
     @Override
     public void setModel(String model) {
-        this.model = NameModel.valueOf(model);
+        this.model = NameModel.getBySystemairName(model);
     }
 
     @Override
@@ -86,7 +94,7 @@ public class FreonCooler extends Cooler {
 
     @Override
     public String getModelSystemair() {
-        return  (model != null) ? this.model.getModelSystemair() : "";
+        return (model != null) ? this.model.getModelSystemair() : "";
     }
 
     @Override
@@ -98,7 +106,7 @@ public class FreonCooler extends Cooler {
                 ", fluid=" + fluid +
                 ", typeMontage=" + typeMontage +
                 ", result=" + result +
-                ", type='" + process.getTxt() + '\'' +
+                ", type=" + process.getTxt() + '\'' +
                 ", model=" + model +
                 '}';
     }

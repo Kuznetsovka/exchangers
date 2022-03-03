@@ -9,8 +9,6 @@ import lombok.Getter;
 
 import java.util.Objects;
 
-import static com.systemair.exchangers.domain.exchangers.models.RoundCooler.NameModel.getByDescription;
-
 
 @AllArgsConstructor
 public class RoundCooler extends Cooler {
@@ -32,6 +30,7 @@ public class RoundCooler extends Cooler {
         CWK_400_3("CWK 400-3-2,5", "CWK 400-3-2,5");
         private final String value;
         private final String modelSystemair;
+
         NameModel(String value, String modelSystemair) {
             this.value = value;
             this.modelSystemair = modelSystemair;
@@ -46,10 +45,19 @@ public class RoundCooler extends Cooler {
             throw new IllegalArgumentException("Тип не соответствует доступным значениям!");
         }
 
+        public static NameModel getBySystemairName(String modelSystemair) {
+            for (NameModel desc : NameModel.values()) {
+                if (Objects.requireNonNull(desc.getModelSystemair()).equals(modelSystemair)) {
+                    return desc;
+                }
+            }
+            throw new IllegalArgumentException("Тип не соответствует доступным значениям!");
+        }
+
         @Override
         public String toString() {
             return "NameModel{" +
-                    "value='" + value + '\'' +
+                    "value=" + value + '\'' +
                     '}';
         }
 
@@ -66,7 +74,7 @@ public class RoundCooler extends Cooler {
 
     @Override
     public void setModel(String model) {
-        this.model = NameModel.valueOf(model);
+        this.model = NameModel.getBySystemairName(model);
     }
 
     @Override
@@ -98,7 +106,7 @@ public class RoundCooler extends Cooler {
                 ", tOut=" + tOut +
                 ", typeMontage=" + typeMontage +
                 ", result=" + result +
-                ", type='" + process.getTxt() + '\'' +
+                ", type=" + process.getTxt() + '\'' +
                 ", model=" + model +
                 '}';
     }
