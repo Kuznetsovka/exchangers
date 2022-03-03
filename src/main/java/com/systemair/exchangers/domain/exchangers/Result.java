@@ -10,11 +10,11 @@ import lombok.ToString;
 @AllArgsConstructor
 @ToString
 public class Result {
-    private double capacity;
-    private double tOut;
-    private long airDrop;
-    private double airVelocity;
-    private String fluidDrop;
-    private String fluidFlow;
+    private Value capacity;
+    private Value tOut;
+    private Value airDrop;
+    private Value airVelocity;
+    private Value fluidDrop;
+    private Value fluidFlow;
     private String model;
 }

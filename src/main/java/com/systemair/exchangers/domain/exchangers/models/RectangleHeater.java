@@ -88,8 +88,8 @@ public class RectangleHeater extends Heater {
     }
 
     @Override
-    public String getModelByVeabModel(String model) {
-        return getByDescription(model).getModelSystemair();
+    public String getModelSystemair() {
+        return  (model != null) ? this.model.getModelSystemair(): "";
     }
 
     @Override

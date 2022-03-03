@@ -85,8 +85,8 @@ public class FreonCooler extends Cooler {
     }
 
     @Override
-    public String getModelByVeabModel(String model) {
-        return getByDescription(model).modelSystemair;
+    public String getModelSystemair() {
+        return  (model != null) ? this.model.getModelSystemair() : "";
     }
 
     @Override

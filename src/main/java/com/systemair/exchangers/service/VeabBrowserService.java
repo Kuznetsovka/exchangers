@@ -4,7 +4,9 @@ import com.systemair.exchangers.domain.Browser;
 import com.systemair.exchangers.domain.Process;
 import com.systemair.exchangers.domain.exchangers.Exchanger;
 import com.systemair.exchangers.domain.exchangers.Result;
+import com.systemair.exchangers.domain.exchangers.Value;
 import com.systemair.exchangers.domain.fluid.Water;
+import lombok.SneakyThrows;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.WindowType;
@@ -57,24 +59,35 @@ public class VeabBrowserService extends BrowserServiceImpl {
             WebElement row = browser.getDriver().findElement(By.id(String.valueOf(i)));
             double resultTOut = Double.parseDouble(row.getAttribute("data-airtemperatureoutlet"));
             if (process == HEAT) {
-                if (resultTOut >= tOut) return getResult(tOut, row);
+                if (resultTOut >= tOut) return getResult(row);
             } else {
-                if (resultTOut <= tOut) return getResult(tOut, row);
+                if (resultTOut <= tOut) return getResult(row);
             }
         }
         return null;
     }
 
-    private Result getResult(int tOut, WebElement row) {
+    private Result getResult(WebElement row) {
         double capacity = Double.parseDouble(row.getAttribute("data-capacity")) / 1000;
+        double tOut = Double.parseDouble(row.getAttribute("data-airtemperatureoutlet"));
         long airDrop = Math.round(Double.parseDouble(row.getAttribute("data-airpressuredrop")));
         double airVelocity = Double.parseDouble(row.getAttribute("data-airvelocity"));
-        String fluidDrop = Math.scalb(Double.parseDouble(row.getAttribute("data-fldpressuredrop")), 2) + getTextByXPath("//span[contains(@class, 'clsLiquidPresDrop')]/br");
-        String fluidFlow = Math.scalb(Double.parseDouble(row.getAttribute("data-fldpressuredrop")), 2) + getTextByXPath("//span[contains(@class, 'clsLiquidFlow')]/br");
+        double fluidDrop = Double.parseDouble(row.getAttribute("data-fldpressuredrop"));
+        String measureFluidDrop = getTextByXPath("//span[contains(@class, 'clsLiquidPresDrop')]");
+        long fluidFlow = Math.round(Double.parseDouble(row.getAttribute("data-fldvolumetricflowinlet")));
+        String measureFluidFlow = getTextByXPath("//span[contains(@class, 'clsLiquidFlow')]");
         String model = row.getAttribute("data-model");
-        return new Result(capacity, tOut, airDrop, airVelocity, fluidDrop, fluidFlow, model);
+        return new Result(
+                new Value(capacity,"kW",2),
+                new Value(tOut,"",1),
+                new Value(airDrop,"Pa",0),
+                new Value(airVelocity,"m/s",2),
+                new Value(fluidDrop,measureFluidDrop,2),
+                new Value(fluidFlow, measureFluidFlow,3),
+                model);
     }
 
+    @SneakyThrows
     @Override
     public void calculation(String model) {
         if (model.isEmpty())

@@ -32,6 +32,7 @@ public class ExchangersApplication {
         browserService.fillTechData(exchanger);
         System.out.println(exchanger);
         browserService.calculation(exchanger.getModel());
+
         exchanger.setResult(browserService.getResult(exchanger.getProcess(), exchanger.getTOut()));
         System.out.println(exchanger.getResult());
         return exchanger;

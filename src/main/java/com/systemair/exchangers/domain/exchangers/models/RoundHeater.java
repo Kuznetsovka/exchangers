@@ -9,8 +9,6 @@ import lombok.Getter;
 
 import java.util.Objects;
 
-import static com.systemair.exchangers.domain.exchangers.models.RoundHeater.NameModel.getByDescription;
-
 @AllArgsConstructor
 public class RoundHeater extends Heater {
     public NameModel model;
@@ -91,8 +89,8 @@ public class RoundHeater extends Heater {
     }
 
     @Override
-    public String getModelByVeabModel(String model) {
-        return getByDescription(model).getModelSystemair();
+    public String getModelSystemair() {
+        return  (model != null) ? this.model.getModelSystemair() : "";
     }
 
     @Override

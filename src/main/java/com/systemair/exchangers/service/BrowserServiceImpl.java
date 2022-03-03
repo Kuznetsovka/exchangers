@@ -4,6 +4,7 @@ import com.systemair.exchangers.domain.Browser;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.ElementClickInterceptedException;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 
@@ -47,7 +48,13 @@ public abstract class BrowserServiceImpl implements BrowserService {
         By by = By.xpath(xpath);
         browser.getWait().until(visibilityOfElementLocated(by));
         LOGGER.info("Кнопка доступна!");
-        browser.getWait().until(elementToBeClickable(by)).click();
+        try {
+            WebElement myelement = browser.getDriver().findElement(by);
+            JavascriptExecutor jse2 = (JavascriptExecutor) browser.getDriver();
+            jse2.executeScript("arguments[0].click()", myelement);
+        } catch (ElementClickInterceptedException e) {
+            e.printStackTrace();
+        }
         LOGGER.info("Кнопка нажата!");
     }
 }

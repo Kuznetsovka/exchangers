@@ -71,8 +71,8 @@ public class RectangleCooler extends Cooler {
     }
 
     @Override
-    public String getModelByVeabModel(String model) {
-        return getByDescription(model).getModelSystemair();
+    public String getModelSystemair() {
+        return  (model != null) ? this.model.getModelSystemair() : "";
     }
 
     @Override
