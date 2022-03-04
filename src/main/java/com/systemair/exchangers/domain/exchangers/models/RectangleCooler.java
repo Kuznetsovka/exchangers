@@ -2,12 +2,15 @@ package com.systemair.exchangers.domain.exchangers.models;
 
 import com.systemair.exchangers.domain.Process;
 import com.systemair.exchangers.domain.TypeMontage;
+import com.systemair.exchangers.domain.exchangers.Brand;
 import com.systemair.exchangers.domain.exchangers.Cooler;
 import com.systemair.exchangers.myInterface.Describable;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 import java.util.Objects;
+
+import static com.systemair.exchangers.domain.exchangers.Brand.VEAB;
 
 @AllArgsConstructor
 public class RectangleCooler extends Cooler {
@@ -42,7 +45,7 @@ public class RectangleCooler extends Cooler {
         PGK_800x400_4("PGK 800x400-4-2,0", "PGK 80-40-4"),
         PGK_800x500_4("PGK 800x500-4-2,0", "PGK 80-50-4"),
         PGK_1000x500_4("PGK 1000x500-4-2,0", "PGK 100-50-4");
-        private final String value;
+        private final String modelVeab;
         private final String modelSystemair;
 
         public static NameModel getByDescription(String modelVeab) {
@@ -64,13 +67,13 @@ public class RectangleCooler extends Cooler {
         }
 
         NameModel(String value, String modelSystemair) {
-            this.value = value;
+            this.modelVeab = value;
             this.modelSystemair = modelSystemair;
         }
 
         @Override
         public String getTxt() {
-            return this.value;
+            return this.modelVeab;
         }
     }
 
@@ -84,8 +87,11 @@ public class RectangleCooler extends Cooler {
     }
 
     @Override
-    public void setModel(String model) {
-        this.model = NameModel.getBySystemairName(model);
+    public void setModel(String model, Brand brand) {
+        if (brand == VEAB)
+            this.model = NameModel.getByDescription(model);
+        else
+            this.model = NameModel.getBySystemairName(model);
     }
 
     @Override

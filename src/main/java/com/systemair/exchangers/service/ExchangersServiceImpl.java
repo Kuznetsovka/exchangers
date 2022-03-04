@@ -6,6 +6,9 @@ import com.systemair.exchangers.domain.exchangers.ExchangerFactory;
 
 import java.util.ArrayList;
 
+import static com.systemair.exchangers.domain.exchangers.Brand.SYSTEMAIR;
+import static com.systemair.exchangers.domain.exchangers.Brand.VEAB;
+
 
 public class ExchangersServiceImpl implements ExchangersService {
     private final ExchangerFactory exchangerFactory = new ExchangerFactory();
@@ -24,8 +27,8 @@ public class ExchangersServiceImpl implements ExchangersService {
         String typeMontage = row.get(8);
         int airFlow = Integer.parseInt(row.get(9));
         exchanger = exchangerFactory.createExchanger(typeMontage, process.getTxt(), typeFluid);
-        exchanger.fillProperties(typeFluid, mixture, tIn, uIn, tOut, airFlow, tInFluid, tOutFluid, exchanger);
-        if (!model.isEmpty()) exchanger.setModel(model);
+        exchanger.fillProperties(typeFluid, mixture, tIn, uIn, tOut, airFlow, tInFluid, tOutFluid);
+        if (!model.isEmpty()) exchanger.setModel(model,SYSTEMAIR);
         return exchanger;
     }
 }

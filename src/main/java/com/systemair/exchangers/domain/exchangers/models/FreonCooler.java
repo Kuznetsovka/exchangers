@@ -2,11 +2,15 @@ package com.systemair.exchangers.domain.exchangers.models;
 
 import com.systemair.exchangers.domain.Process;
 import com.systemair.exchangers.domain.TypeMontage;
+import com.systemair.exchangers.domain.exchangers.Brand;
 import com.systemair.exchangers.domain.exchangers.Cooler;
 import com.systemair.exchangers.myInterface.Describable;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 
 import java.util.Objects;
+
+import static com.systemair.exchangers.domain.exchangers.Brand.VEAB;
 
 @AllArgsConstructor
 public class FreonCooler extends Cooler {
@@ -16,7 +20,7 @@ public class FreonCooler extends Cooler {
     public FreonCooler() {
         this.typeMontage = TypeMontage.RECTANGLE;
     }
-
+    @Getter
     public enum NameModel implements Describable {
         PGDX_400x200_3("PGDX 400x200-3-2,5", "DXRE 40-20-3"),
         PGDX_500x250_3("PGDX 500x250-3-2,5", "DXRE 50-25-3"),
@@ -35,11 +39,6 @@ public class FreonCooler extends Cooler {
         NameModel(String value, String modelSystemair) {
             this.value = value;
             this.modelSystemair = modelSystemair;
-        }
-
-        @Override
-        public String getModelSystemair() {
-            return this.modelSystemair;
         }
 
         @Override
@@ -74,8 +73,11 @@ public class FreonCooler extends Cooler {
     }
 
     @Override
-    public void setModel(String model) {
-        this.model = NameModel.getBySystemairName(model);
+    public void setModel(String model, Brand brand) {
+        if (brand == VEAB)
+            this.model = NameModel.getByDescription(model);
+        else
+            this.model = NameModel.getBySystemairName(model);
     }
 
     @Override

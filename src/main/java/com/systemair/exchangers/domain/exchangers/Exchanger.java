@@ -2,6 +2,7 @@ package com.systemair.exchangers.domain.exchangers;
 
 import com.systemair.exchangers.domain.Process;
 import com.systemair.exchangers.domain.TypeMontage;
+
 import com.systemair.exchangers.domain.fluid.Fluid;
 import com.systemair.exchangers.domain.fluid.Freon;
 import com.systemair.exchangers.domain.fluid.Water;
@@ -34,7 +35,7 @@ public abstract class Exchanger implements Modifiable {
             this.fluid = new Water(getByDescription(fluid), mixture, tInFluid, tOutFluid);
     }
 
-    public void fillProperties(String typeFluid, Integer mixture, int tIn, Integer uIn, Integer tOut, Integer airFlow, Integer tInFluid, Integer tOutFluid, Exchanger exchanger) {
+    public void fillProperties(String typeFluid, Integer mixture, int tIn, Integer uIn, Integer tOut, Integer airFlow, Integer tInFluid, Integer tOutFluid) {
         this.setTIn(tIn);
         this.setUIn(uIn);
         this.setTOut(tOut);
@@ -55,11 +56,7 @@ public abstract class Exchanger implements Modifiable {
                 '}';
     }
 
-    public Fluid getFluid() {
-        return fluid;
-    }
-
-    public abstract void setModel(String model);
+    public abstract void setModel(String model, Brand brand);
 
     public abstract String getModel();
 

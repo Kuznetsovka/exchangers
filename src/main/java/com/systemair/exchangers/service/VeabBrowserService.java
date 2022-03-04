@@ -75,7 +75,7 @@ public class VeabBrowserService extends BrowserServiceImpl {
         double airVelocity = Double.parseDouble(row.getAttribute("data-airvelocity"));
         double fluidDrop = Double.parseDouble(row.getAttribute("data-fldpressuredrop"));
         String measureFluidDrop = getTextByXPath("//span[contains(@class, 'clsLiquidPresDrop')]");
-        long fluidFlow = Math.round(Double.parseDouble(row.getAttribute("data-fldvolumetricflowinlet")));
+        double fluidFlow = Double.parseDouble(row.getAttribute("data-fldvolumetricflowinlet"));
         String measureFluidFlow = getTextByXPath("//span[contains(@class, 'clsLiquidFlow')]");
         String model = row.getAttribute("data-model");
         return new Result(

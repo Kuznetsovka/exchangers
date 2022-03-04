@@ -1,6 +1,7 @@
 package com.systemair.exchangers;
 
 import com.systemair.exchangers.domain.Browser;
+import com.systemair.exchangers.domain.exchangers.Brand;
 import com.systemair.exchangers.domain.exchangers.Exchanger;
 import com.systemair.exchangers.service.BrowserService;
 import com.systemair.exchangers.service.ExchangersService;
@@ -8,6 +9,8 @@ import com.systemair.exchangers.service.ExchangersServiceImpl;
 import com.systemair.exchangers.service.VeabBrowserService;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.Wait;
+
+import static com.systemair.exchangers.domain.exchangers.Brand.VEAB;
 
 public class ExchangersApplication {
     private final ExchangersService exchangersService = new ExchangersServiceImpl();
@@ -36,9 +39,10 @@ public class ExchangersApplication {
         browserService.fillTechData(exchanger);
         System.out.println(exchanger);
         browserService.calculation(exchanger.getModel());
-
         exchanger.setResult(browserService.getResult(exchanger.getProcess(), exchanger.getTOut()));
         System.out.println(exchanger.getResult());
+        if (exchanger.getResult() != null)
+            exchanger.setModel(exchanger.getResult().getModel(), VEAB);
         return exchanger;
     }
 

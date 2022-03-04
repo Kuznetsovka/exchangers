@@ -2,11 +2,16 @@ package com.systemair.exchangers.domain.exchangers.models;
 
 import com.systemair.exchangers.domain.Process;
 import com.systemair.exchangers.domain.TypeMontage;
+import com.systemair.exchangers.domain.exchangers.Brand;
 import com.systemair.exchangers.domain.exchangers.Heater;
 import com.systemair.exchangers.myInterface.Describable;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 
 import java.util.Objects;
+
+import static com.systemair.exchangers.domain.exchangers.Brand.SYSTEMAIR;
+import static com.systemair.exchangers.domain.exchangers.Brand.VEAB;
 
 @AllArgsConstructor
 public class RectangleHeater extends Heater {
@@ -16,7 +21,7 @@ public class RectangleHeater extends Heater {
     public RectangleHeater() {
         this.typeMontage = TypeMontage.RECTANGLE;
     }
-
+    @Getter
     protected enum NameModel implements Describable {
         PGV_250x150_2("PGV 250x150-2-2,5", "VBR 25-15-2"),
         PGV_400x200_2("PGV 400x200-2-2,5", "VBR 40-20-2"),
@@ -75,19 +80,17 @@ public class RectangleHeater extends Heater {
         }
 
         @Override
-        public String getModelSystemair() {
-            return modelSystemair;
-        }
-
-        @Override
         public String getTxt() {
             return this.value;
         }
     }
 
     @Override
-    public void setModel(String model) {
-        this.model = NameModel.getBySystemairName(model);
+    public void setModel(String model, Brand brand) {
+        if (brand == VEAB)
+            this.model = NameModel.getByDescription(model);
+        else
+            this.model = NameModel.getBySystemairName(model);
     }
 
     @Override
