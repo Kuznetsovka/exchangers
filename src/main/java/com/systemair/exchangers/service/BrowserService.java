@@ -16,7 +16,7 @@ public interface BrowserService {
 
     void inputTextById(String id, String newValue) throws InterruptedException;
 
-    Result getResult(Process process, int tOut);
+    Result getResult(Process process, double tOut);
 
     void calculation(String txt);
 

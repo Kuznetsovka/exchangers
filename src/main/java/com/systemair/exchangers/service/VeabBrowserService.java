@@ -54,7 +54,7 @@ public class VeabBrowserService extends BrowserServiceImpl {
     }
 
     @Override
-    public Result getResult(Process process, int tOut) {
+    public Result getResult(Process process, double tOut) {
         int rows = browser.getDriver().findElements(By.xpath("//*[@id='tblResultProduct']/tbody/tr")).size();
         for (int i = 0; i < rows; i++) {
             WebElement row = browser.getDriver().findElement(By.id(String.valueOf(i)));

@@ -17,11 +17,11 @@ import static com.systemair.exchangers.domain.fluid.Water.TypeWater.getByDescrip
 @Getter
 @Setter
 public abstract class Exchanger implements Modifiable {
-    protected int tIn;
+    protected double tIn;
     protected int uIn;
     protected int airFlow;
     protected Fluid fluid;
-    protected int tOut;
+    protected double tOut;
     public String URL;
     protected TypeMontage typeMontage;
     protected Result result;
@@ -35,7 +35,7 @@ public abstract class Exchanger implements Modifiable {
             this.fluid = new Water(getByDescription(fluid), mixture, tInFluid, tOutFluid);
     }
 
-    public void fillProperties(String typeFluid, Integer mixture, int tIn, Integer uIn, Integer tOut, Integer airFlow, Integer tInFluid, Integer tOutFluid) {
+    public void fillProperties(String typeFluid, Integer mixture, double tIn, Integer uIn, double tOut, Integer airFlow, Integer tInFluid, Integer tOutFluid) {
         this.setTIn(tIn);
         this.setUIn(uIn);
         this.setTOut(tOut);

@@ -16,9 +16,9 @@ public class ExchangersServiceImpl implements ExchangersService {
     @Override
     public Exchanger getExchanger(ArrayList<String> row, Process process) {
         Exchanger exchanger;
-        int tIn = Integer.parseInt(row.get(0));
+        double tIn = Double.parseDouble(row.get(0).replace(",","."));
         int uIn = Integer.parseInt(row.get(1));
-        int tOut = Integer.parseInt(row.get(2));
+        double tOut = Double.parseDouble(row.get(2).replace(",","."));
         String typeFluid = row.get(3);
         int mixture = !row.get(4).isEmpty() ? Integer.parseInt(row.get(4)) : 0;
         int tInFluid = Integer.parseInt(row.get(5));
