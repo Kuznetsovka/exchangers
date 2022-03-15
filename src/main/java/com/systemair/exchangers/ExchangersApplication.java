@@ -1,7 +1,6 @@
 package com.systemair.exchangers;
 
 import com.systemair.exchangers.domain.Browser;
-import com.systemair.exchangers.domain.exchangers.Brand;
 import com.systemair.exchangers.domain.exchangers.Exchanger;
 import com.systemair.exchangers.service.BrowserService;
 import com.systemair.exchangers.service.ExchangersService;

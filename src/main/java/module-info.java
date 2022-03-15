@@ -1,8 +1,7 @@
 module com.systemair.exchangers {
-    requires org.seleniumhq.selenium.edge_driver;
-    requires org.seleniumhq.selenium.chrome_driver;
-    requires lombok;
+    requires org.seleniumhq.selenium.api;
     requires org.seleniumhq.selenium.support;
+    requires lombok;
     requires log4j;
 
     exports com.systemair.exchangers;

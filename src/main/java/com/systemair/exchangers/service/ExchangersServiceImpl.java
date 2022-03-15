@@ -7,7 +7,6 @@ import com.systemair.exchangers.domain.exchangers.ExchangerFactory;
 import java.util.ArrayList;
 
 import static com.systemair.exchangers.domain.exchangers.Brand.SYSTEMAIR;
-import static com.systemair.exchangers.domain.exchangers.Brand.VEAB;
 
 
 public class ExchangersServiceImpl implements ExchangersService {
